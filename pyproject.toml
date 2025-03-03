@@ -13,7 +13,7 @@ keywords = [
     "PAuswG",
     "Datensparsamkeit",
 ]
-license = {text = "Mozilla Public License 2.0 (MPL 2.0)"}
+license = "MPL-2.0"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: End Users/Desktop",
@@ -30,14 +30,14 @@ classifiers = [
     "Topic :: Utilities",
     "Typing :: Typed",
 ]
+dynamic = ["version"]
+authors = [
+    {email = "simon@fam-biewald.de", name = "Simon <Varbin> Biewald"}
+]
 dependencies = [
     "ttkbootstrap >= 1.0",
     "pillow >= 8.0.0",
     "importlib-resources"
-]
-dynamic = ["version"]
-authors = [
-    {email = "simon@fam-biewald.de", name = "Simon <Varbin> Biewald"}
 ]
 
 [project.optional-dependencies]
@@ -45,6 +45,10 @@ portals = [
     "dbus-python", "pygobject"
 ]
 
+[project.urls]
+Homepage = "https://github.com/Varbin/ausweiskopie"
+Repository = "https://github.com/Varbin/ausweiskopie.git"
+Issues = "https://github.com/Varbin/ausweiskopie/issues"
 
 [tool.setuptools]
 include-package-data = true
