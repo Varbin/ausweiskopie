@@ -51,3 +51,5 @@ Issues = "https://github.com/Varbin/ausweiskopie/issues"
 
 [tool.setuptools]
 include-package-data = true
+
+[tool.setuptools_scm]
