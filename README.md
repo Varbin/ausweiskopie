@@ -2,7 +2,7 @@
 
 <center>Ausweiskopien einfach kenntlich machen und schwärzen.</center>
 
-![Screenshot eines Computerprograms. Es ist ein geschwärzter Ausweis abgebildet, und darunter alle möglichen Felder.](./img.png)
+![Screenshot eines Computerprograms. Es ist ein geschwärzter Ausweis abgebildet, und darunter alle möglichen Felder.](./doc/img.png)
 
 Nach [§&nbsp;20 PAuswG](https://www.gesetze-im-internet.de/pauswg/__20.html) gilt:
 
