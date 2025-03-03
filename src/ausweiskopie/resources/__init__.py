@@ -36,6 +36,7 @@ def set_locale(new_locale: Optional[str] = None):
     """Set the locale for every string lookup."""
     global _locale
     if new_locale is None:
+        locale.setlocale(locale.LC_ALL, '')
         new_locale = locale.getlocale(locale.LC_MESSAGES)[0]
         if new_locale == "C":
             new_locale = "en"

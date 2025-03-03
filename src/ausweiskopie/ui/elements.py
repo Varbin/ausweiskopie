@@ -17,6 +17,7 @@ try:
     import ttkbootstrap as ttk
 except ImportError:
     from tkinter import ttk
+    ttk.Text = tk.Text
 
 from typing import Collection, Mapping, Optional
 

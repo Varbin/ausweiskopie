@@ -26,7 +26,7 @@ NPA_2019;2. New German Identity Card (19th December 2021 to 1st August 2022) ;2.
 NPA_2010;3. New German Identity Card (before 18th December 2019) ;3. Neuer Personalausweis (bis 18. Dezember 2019)
 REDACT_FIELDS;Fields to redact;Zu schwärzende Felder
 NOT_ALL_PRESENT;Not all fields may be present on any selected document type.;Nicht alle Felder hier zur Auswahl stehenden Felder sind überhaupt auf allen Ausweisdokumententypen enthalten.
-COPY_TEXT;COPY COPY COPY<br><br>to AUDIENCE<br>at $today<br>for PURPOSE<br><br>COPY COPY COPY;KOPIE KOPIE KOPIE<br><br>für EMPFÄNGER<br>am $today<br>zu ZWECK<br><br>KOPIE KOPIE KOPIE
+COPY_TEXT;COPY COPY COPY<br><br>for AUDIENCE<br>at $today<br>because of PURPOSE<br><br>COPY COPY COPY;KOPIE KOPIE KOPIE<br><br>für EMPFÄNGER<br>am $today<br>zu ZWECK<br><br>KOPIE KOPIE KOPIE
 WATERMARK;Watermark;Wasserzeichen
 COLOR;Colour;Farbe
 GRAYSCALE;Convert document to grayscale;Dokument zu Graustufen umwandeln
@@ -37,6 +37,7 @@ TRANSPARENCY;Transparency [%];Transparenz [%]
 PREVIEW;Preview;Vorschau
 CREATE_COPY;Create document copy;Ausweiskopie erstellen
 NPA_BACK;1. New German Identity Card;1. Neuer Personalausweis
-VORLAEUFIG;4. Temporary, German Identity Card;4. Vorläufiger Personalausweis
-GERMAN_PASSPORT;5. German biometric Passport (after March 2017);5. Reisepass (ab März 2017)
+VORLAEUFIG;4. Temporary German Identity Card;4. Vorläufiger Personalausweis
+GERMAN_PASSPORT;5. German biometric Passport (since March 2017);5. Reisepass (ab März 2017)
 NO_BACK;3. (No back);3. (Keine Rückseite)
+VORLAEUFIG_BACK;2. Temporary German Identity Card;2. Vorläufiger Personalausweis

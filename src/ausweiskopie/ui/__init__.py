@@ -62,7 +62,7 @@ class MainFrame(ttk.Frame):
             document_types={
                 _("NPA_BACK"):
                     FIELDS_NPA_BACK,
-                _("VORLAEUFIG"):
+                _("VORLAEUFIG_BACK"):
                     FIELDS_VORLAEUFIG_BACK,
                 _("NO_BACK"):
                     FIELDS_NO_BACK,
@@ -191,13 +191,15 @@ def main():
         root = tk.Tk()
 
     foreground.instance = root
-    root.wm_title("Meine Ausweiskopie")
-    root.wm_iconphoto(False, ImageTk.PhotoImage(ICON_IMAGE))
 
-    m = MainFrame(root)
-    m.pack(expand=1, fill="both")
+    try:
+        root.wm_title("Meine Ausweiskopie")
+        root.wm_iconphoto(False, ImageTk.PhotoImage(ICON_IMAGE))
 
-    root.mainloop()
+        m = MainFrame(root)
+        m.pack(expand=1, fill="both")
 
-    if loop is not None:
-        loop.quit()
+        root.mainloop()
+    finally:
+        if loop is not None:
+            loop.quit()
