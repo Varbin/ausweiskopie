@@ -3,9 +3,9 @@
 > Easily watermark and hide information in copies of your (german) identity card!<br>
 > 🇩🇪 [German language information is below.](#meine-ausweiskopie)
 
-| Before                                                                                                                                                     | After                                                                                                                                                            |
-|------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ![Screenshot of a computer program. There is a copy of a passport, which all fields marked. It is possible to toggle each fields](./doc/img_en_before.png) | ![Like the previous screenshot, but the selected fields are blacked out, the password is in greyscale and there is a watermark over it.](./doc/img_en_after.png) |
+| Before                                                                                                                                                                                                               | After                                                                                                                                                                                                                      |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![Screenshot of a computer program. There is a copy of a passport, which all fields marked. It is possible to toggle each fields](https://raw.githubusercontent.com/Varbin/ausweiskopie/trunk/doc/img_en_before.png) | ![Like the previous screenshot, but the selected fields are blacked out, the password is in greyscale and there is a watermark over it.](https://raw.githubusercontent.com/Varbin/ausweiskopie/trunk/doc/img_en_after.png) |
 
 This tool allows watermarking copies of german identity documents.
 You can also blacken information your recipient does not need (like the document number or CAN).
@@ -41,9 +41,9 @@ Optional features:
 > Ausweiskopien schwärzen und einfach kenntlich machen.
 
 
-| Vorher                                                                                                                                    | Nacher                                                                                                                                                   |
-|-------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ![Screenshot eines Computerprograms. Es ist eine Reisepasskarte abgebildet, und darunter alle möglichen Felder.](./doc/img_de_before.png) | ![Gleiches Programm, die Felder im Pass sind nun geschwärzt, außerdem ist er schwarz-weiß und mit einem Wasserzeichen versehen.](./doc/img_en_after.png) |
+| Vorher                                                                                                                                                                                               | Nacher                                                                                                                                                                                                             |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![Screenshot eines Computerprogramms. Es ist eine Reisepasskarte abgebildet, und darunter alle möglichen Felder.](https://raw.githubusercontent.com/Varbin/ausweiskopie/trunk/doc/img_de_before.png) | ![Gleiches Programm, die Felder im Pass sind nun geschwärzt, außerdem ist er schwarz-weiß und mit einem Wasserzeichen versehen.](https://raw.githubusercontent.com/Varbin/ausweiskopie/trunk/doc/img_de_after.png) |
 
 Nach [§&nbsp;20 PAuswG](https://www.gesetze-im-internet.de/pauswg/__20.html) gilt:
 
@@ -73,6 +73,6 @@ pip install ausweiskopie
 Deine Python-Installation muss `tkinter` installiert haben.
 
 Optionale-Features:
- - **Modernes Look and Feel**: Mittels *ttkbootstrap* kann der Anwendung ein modernes Aussehen übergestülpt werden, zur Installation `pip install ausweiskopie[modern]` ausführen.
+ - **Modernes Look-and-Feel**: Mittels *ttkbootstrap* kann der Anwendung ein modernes Aussehen übergestülpt werden, zur Installation `pip install ausweiskopie[modern]` ausführen.
  - **XDK Desktop Portals** (Natives Datei-Öffenen-/Speichern-Unter unter Linux): Die meisten Desktop-Umgebungen stellen diese mittlerweile bereit. Zur Installation `pip install ausweiskopie[portals]` durchführen.
- - **Drag-and-Drop**: Wenn `tkdnd` in deiner Tk/Tcl-Installation vorhanden ist, funktioniert Drag-und-Drop von Bilder.
+ - **Drag-and-Drop**: Wenn `tkdnd` in deiner Tk/Tcl-Installation vorhanden ist, funktioniert Drag-und-Drop von Bildern.
