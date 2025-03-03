@@ -34,14 +34,16 @@ authors = [
     {email = "simon@fam-biewald.de", name = "Simon <Varbin> Biewald"}
 ]
 dependencies = [
-    "ttkbootstrap >= 1.0",
     "pillow >= 8.0.0",
     "importlib-resources"
 ]
 
 [project.optional-dependencies]
 portals = [
-    "dbus-python", "pygobject"
+    "dbus-python; sys_platform=='linux'", "pygobject; sys_platform=='linux'"
+]
+modern = [
+    "ttkbootstrap >= 1.0"
 ]
 
 [project.urls]
