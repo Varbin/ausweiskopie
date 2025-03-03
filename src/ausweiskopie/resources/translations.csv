@@ -1,0 +1,42 @@
+string;en;de
+DOCUMENT_NUMBER;Document number;Ausweisnummer
+MACHINE_READABLE_ZONE;Complete machine readable zone (MRZ);Gesamter machinenlesbarer Bereich (MRZ)
+PHOTO;Photo;Photo
+SURNAME;Surname;Name
+GIVEN_NAME;Given names;Vornamen
+NAME_AT_BIRTH;Name at birth;Geburtsname
+RELIGIOUS_NAME_OR_PSEUDONYM;Religious name or pseudonym;Ordens- oder Künstlername
+ADDRESS;Address;Anschrift
+SIGNATURE;Signature;Unterschrift
+DATE_OF_BIRTH;Date of birth;Geburtstag
+PLACE_OF_BIRTH;Location of birth;Geburtsort
+COLOUR_OF_EYES;Colour of eyes;Augenfarbe
+HEIGHT;Height;Größe
+NATIONALITY;Nationality;Staatsangehörigkeit
+AUTHORITY;Authority;Behörde
+CAN;Access number (CAN);Zugangsnummer (CAN)
+REMARKS;Remarks;Anmerkungen
+DATE;Date;Datum
+DATE_OF_EXPIRY;Date of expiry;Gültig bis
+SEX;Sex;Geschlecht
+FRONT;Front;Vorderseite
+BACK;Back;Rückseite
+NPA_2021;1. New German Identity Card with EU-symbol (after 2nd August 2021);1. Neuer Personalausweis mit EU-Logo (ab 2. August 2021)
+NPA_2019;2. New German Identity Card (19th December 2021 to 1st August 2022) ;2. Neuer Personalausweis (19. Dezember 2019 - 1. August 2021)
+NPA_2010;3. New German Identity Card (before 18th December 2019) ;3. Neuer Personalausweis (bis 18. Dezember 2019)
+REDACT_FIELDS;Fields to redact;Zu schwärzende Felder
+NOT_ALL_PRESENT;Not all fields may be present on any selected document type.;Nicht alle Felder hier zur Auswahl stehenden Felder sind überhaupt auf allen Ausweisdokumententypen enthalten.
+COPY_TEXT;COPY COPY COPY<br><br>to AUDIENCE<br>at $today<br>for PURPOSE<br><br>COPY COPY COPY;KOPIE KOPIE KOPIE<br><br>für EMPFÄNGER<br>am $today<br>zu ZWECK<br><br>KOPIE KOPIE KOPIE
+WATERMARK;Watermark;Wasserzeichen
+COLOR;Colour;Farbe
+GRAYSCALE;Convert document to grayscale;Dokument zu Graustufen umwandeln
+TEXT;Text;Text
+NOISE;Add random noise;Zufälliges Rauschen hinzufügen
+MARK_COPY;Mark copy;Kopie markieren
+TRANSPARENCY;Transparency [%];Transparenz [%]
+PREVIEW;Preview;Vorschau
+CREATE_COPY;Create document copy;Ausweiskopie erstellen
+NPA_BACK;1. New German Identity Card;1. Neuer Personalausweis
+VORLAEUFIG;4. Temporary, German Identity Card;4. Vorläufiger Personalausweis
+GERMAN_PASSPORT;5. German biometric Passport (after March 2017);5. Reisepass (ab März 2017)
+NO_BACK;3. (No back);3. (Keine Rückseite)

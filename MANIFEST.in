@@ -1,0 +1,3 @@
+include src/ausweiskopie/resources/**.jpg
+include src/ausweiskopie/resources/**.png
+include src/ausweiskopie/resources/**.ttf

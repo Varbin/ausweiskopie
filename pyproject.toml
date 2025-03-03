@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ausweiskopie"
+description = "Create privacy friendly and legal copies of your Ausweisdokument."
+readme = "README.md"
+requires-python = ">=3.7"
+keywords = [
+    "Ausweiskopie",
+    "Personalausweis",
+    "PAuswG",
+    "Datensparsamkeit",
+]
+license = {text = "Mozilla Public License 2.0 (MPL 2.0)"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "Natural Language :: German",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Multimedia :: Graphics :: Editors :: Raster-Based",
+    "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+    "Topic :: Multimedia :: Graphics :: Viewers",
+    "Topic :: Office/Business",
+    "Topic :: Security",
+    "Topic :: Printing",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+dependencies = [
+    "ttkbootstrap >= 1.0",
+    "pillow >= 8.0.0",
+    "importlib-resources"
+]
+dynamic = ["version"]
+authors = [
+    {email = "simon@fam-biewald.de", name = "Simon <Varbin> Biewald"}
+]
+
+[project.optional-dependencies]
+portals = [
+    "dbus-python", "pygobject"
+]
+
+
+[tool.setuptools]
+include-package-data = true
