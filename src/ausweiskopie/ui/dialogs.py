@@ -27,7 +27,7 @@ def get_dbus_eventloop():
 try:
     import dbus
 
-    def _provide_dbus_interfaces(session_bus: dbus.Bus = None) -> Optional[Tuple[dbus.Bus, dbus.Interface, dbus.Interface]]:
+    def _provide_dbus_interfaces(session_bus: dbus.Bus = None) -> Optional[Tuple['dbus.Bus', 'dbus.Interface', 'dbus.Interface']]:
         if session_bus is None:
             try:
                 session_bus = dbus.SessionBus(mainloop=get_dbus_eventloop())
@@ -63,7 +63,7 @@ except ImportError:
     _provide_dbus_interfaces = None
 
 
-def _tk_filetypes_to_portals_filters(filetypes: Collection[Tuple[str, str]]) -> List[Tuple[str, List[Tuple[dbus.UInt32, str]]]]:
+def _tk_filetypes_to_portals_filters(filetypes: Collection[Tuple[str, str]]) -> List[Tuple[str, List[Tuple['dbus.UInt32', str]]]]:
     return [
         (name, [(dbus.UInt32(0), pattern) for  pattern in filterstring.split()])
             for name, filterstring in filetypes
@@ -114,7 +114,7 @@ def openfilename_desktopportals(
         initialdir: Union[str, PathLike, None] = None,
         title: Optional[str] = None,
         parent: Optional[tkinter.Tk] = None,
-        session_bus: Optional[dbus.Bus] = None
+        session_bus: Optional['dbus.Bus'] = None
 ) -> Optional[str]:
     """Display an "open file" dialogue using XDG Desktop Portals."""
     if dbus is None:
@@ -196,7 +196,7 @@ def savefileasname_desktopportals(
         initialfile: Union[str, PathLike, None] = None,
         title: Optional[str] = None,
         parent: Optional[tkinter.Tk] = None,
-        session_bus: Optional[dbus.Bus] = None
+        session_bus: Optional['dbus.Bus'] = None
 ) -> Optional[str]:
     """Provide a "Save file as" dialogue on Linux."""
     if dbus is None:

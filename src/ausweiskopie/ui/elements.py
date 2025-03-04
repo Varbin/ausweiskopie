@@ -209,6 +209,7 @@ class Picture(ttk.Frame):
         ], parent=self.winfo_toplevel())
         if not filename:
             return
+        self._load_image_file(filename)
 
     def ondrop(self, event):
         """Drop handler."""
