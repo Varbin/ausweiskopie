@@ -54,6 +54,9 @@ Homepage = "https://github.com/Varbin/ausweiskopie"
 Repository = "https://github.com/Varbin/ausweiskopie.git"
 Issues = "https://github.com/Varbin/ausweiskopie/issues"
 
+[project.gui-scripts]
+ausweiskopie = "ausweiskopie.ui:main"
+
 [tool.setuptools]
 include-package-data = true
 
