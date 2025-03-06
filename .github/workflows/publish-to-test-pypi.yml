@@ -30,6 +30,29 @@ jobs:
         name: python-package-distributions
         path: dist/
 
+  build-exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: "0"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install
+        run: |
+          pip install . pyinstaller
+      - name: Compile
+        run:
+          pyinstaller contrib/pyinstaller-entrypoint.spec
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: pyinstaller-binaries
+          path: dist/
+
   publish-to-pypi:
     name: >-
       Publish Python distribution to PyPI
@@ -58,6 +81,7 @@ jobs:
       and upload them to GitHub Release
     needs:
     - publish-to-pypi
+    - build-exe  # Block releases if that fails
     runs-on: ubuntu-latest
 
     permissions:
