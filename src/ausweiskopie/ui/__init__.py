@@ -187,7 +187,7 @@ def main():
         Thread(target=loop.run, name="GLib MainLoop").start()
     except ImportError:
         loop = None
-    del ttk.Window
+
     if hasattr(ttk, "Window"):
         root = ttk.Window()
     else:
