@@ -22,6 +22,7 @@ FONT_NOTOSANS_REGULAR = "NotoSans-Regular.ttf"
 TRANSLATIONS = "translations.csv"
 
 ICON = "icon.png"
+ICON_COLORED = "icon_colored.png"
 
 _locale: Optional[str] = None
 _strings: dict[str, dict[str, str]] = {}

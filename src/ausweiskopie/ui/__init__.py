@@ -5,6 +5,7 @@ import datetime
 import tkinter as tk
 import traceback
 from collections import OrderedDict
+from pydoc import classname
 from tkinter import filedialog
 from tkinter import messagebox
 from typing import Mapping
@@ -27,11 +28,12 @@ except ImportError:
 from .elements import DocumentFrame, Selection, ColorButton, \
     MarkFrame
 from ..resources import \
-    ICON, EXAMPLE_NPA_2021, EXAMPLE_NPA_BACK, get_resource, _
+    ICON, EXAMPLE_NPA_2021, EXAMPLE_NPA_BACK, get_resource, _, ICON_COLORED
 
 from PIL import Image, ImageTk
 
 ICON_IMAGE = Image.open(get_resource(ICON))
+ICON_IMAGE_COLORED = Image.open(get_resource(ICON_COLORED))
 
 
 class MainFrame(ttk.Frame):
@@ -185,16 +187,17 @@ def main():
         Thread(target=loop.run, name="GLib MainLoop").start()
     except ImportError:
         loop = None
+    del ttk.Window
     if hasattr(ttk, "Window"):
         root = ttk.Window()
     else:
-        root = tk.Tk()
+        root = tk.Tk(className = "Ausweiskopie")
 
     foreground.instance = root
 
     try:
         root.wm_title("Meine Ausweiskopie")
-        root.wm_iconphoto(False, ImageTk.PhotoImage(ICON_IMAGE))
+        root.wm_iconphoto(False, ImageTk.PhotoImage(ICON_IMAGE_COLORED))
 
         m = MainFrame(root)
         m.pack(expand=1, fill="both")

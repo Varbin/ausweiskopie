@@ -9,8 +9,6 @@ https://stackoverflow.com/a/14283431
 import tkinter
 from typing import Callable, Any, Union, List, Tuple, Optional, Sequence
 
-from PIL.SpiderImagePlugin import isInt
-
 
 def _load_tkdnd(master: tkinter.Tk):
     version = master.tk.eval('package require tkdnd')
