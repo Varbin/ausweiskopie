@@ -3,6 +3,7 @@ Resources for the package.
 """
 import csv
 import locale
+import platform
 import sys
 from typing import Optional
 
@@ -38,7 +39,10 @@ def set_locale(new_locale: Optional[str] = None):
     global _locale
     if new_locale is None:
         locale.setlocale(locale.LC_ALL, '')
-        new_locale = locale.getlocale(locale.LC_MESSAGES)[0]
+        new_locale = locale.getlocale(
+            locale.LC_CTYPE if platform.system() == "Windows"
+                            else locale.LC_MESSAGES
+        )[0]
         if new_locale == "C":
             new_locale = "en"
         else:
