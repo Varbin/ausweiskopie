@@ -59,6 +59,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
     needs:
     - build
+    - build-exe  # Block production release if building binaries fails
     runs-on: ubuntu-latest
     environment:
       name: pypi
@@ -81,7 +82,7 @@ jobs:
       and upload them to GitHub Release
     needs:
     - publish-to-pypi
-    - build-exe  # Block releases if that fails
+    - build-exe
     runs-on: ubuntu-latest
 
     permissions:
@@ -94,12 +95,18 @@ jobs:
       with:
         name: python-package-distributions
         path: dist/
+    - name: Download windows executables
+      uses: actions/download-artifact@v4
+      with:
+        name: pyinstaller-binaries
+        path: dist/
     - name: Sign the dists with Sigstore
       uses: sigstore/gh-action-sigstore-python@v3.0.0
       with:
         inputs: >-
           ./dist/*.tar.gz
           ./dist/*.whl
+          ./dist/*.exe
     - name: Create GitHub Release
       env:
         GITHUB_TOKEN: ${{ github.token }}
