@@ -61,5 +61,5 @@ ausweiskopie = "ausweiskopie.ui:main"
 include-package-data = true
 
 [tool.setuptools_scm]
-version_scheme = "python-simplified-semver"
+#version_scheme = "python-simplified-semver"
 local_scheme = "no-local-version"
