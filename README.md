@@ -24,8 +24,6 @@ Select the most suitable installation option for you below.
 
 ### Flatpak for Linux
 
-[![Flathub](https://img.shields.io/badge/FlatHub-black?style=for-the-badge&logo=flathub)](https://flathub.org/apps/in.varb.Ausweiskopie)
-
 On Linux, you can install this application independent of your distribution with flatpak.
 Follow the [initial setup guide](https://flathub.org/setup) if you haven't installed flatpak yet.
 
@@ -40,8 +38,6 @@ Alternatively, visit the store page for further details:
 [![Get it on Flathub](https://flathub.org/api/badge?locale=en)](https://flathub.org/apps/in.varb.Ausweiskopie)
 
 ### Binaries on GitHub Releases for Windows
-
-[![Github Releases](https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=Github&labelColor=black)](https://github.com/Varbin/Ausweiskopie/releases/latest/)
 
 You can download the latest Windows binaries from [the releases page](https://github.com/Varbin/Ausweiskopie/releases/latest/).
 The binaries work without installation.
@@ -90,8 +86,6 @@ Folgende Ausweistypen werden unterstützt:
 
 ### Flatpak for Linux
 
-[![Flathub](https://img.shields.io/badge/FlatHub-black?style=for-the-badge&logo=flathub)](https://flathub.org/apps/in.varb.Ausweiskopie)
-
 Unter Linux kann die Anwendung unabhängig von der Linuxdistribution mittels Flatpak installiert werden.
 Sollte Flatpak noch nicht installiert sein, folge der [Einrichtungsanleitung](https://flathub.org/de/setup).
 
@@ -105,9 +99,7 @@ Für weitere Details besuche die Marktplatzseite:
 
 [![Jetzt auf Flathub](https://flathub.org/api/badge?locale=de)](https://flathub.org/apps/in.varb.Ausweiskopie)
 
-### Binaries on GitHub Releases for Linux
-
-[![Github Releases](https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=Github&labelColor=black)](https://github.com/Varbin/Ausweiskopie/releases/latest/)
+### Binaries on GitHub Releases for Windows
 
 Die neusten Pakete findest du unter [Releases](https://github.com/Varbin/Ausweiskopie/releases/latest/).
 Du kannst die Anwendung direkt ohne Installation ausführen.
