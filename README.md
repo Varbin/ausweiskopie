@@ -36,13 +36,14 @@ Afterwards, you can run it with:
 ```flatpak run in.varb.Ausweiskopie```
 
 Alternatively, visit the store page for further details:
+
 [![Get it on Flathub](https://flathub.org/api/badge?locale=en)](https://flathub.org/apps/in.varb.Ausweiskopie)
 
 ### Binaries on GitHub Releases for Windows
 
 [![Github Releases](https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=Github&labelColor=black)](https://github.com/Varbin/Ausweiskopie/releases/latest/)
 
-You can download the latest Windows binaries from GitHub releases.
+You can download the latest Windows binaries from [the releases page](https://github.com/Varbin/Ausweiskopie/releases/latest/).
 The binaries work without installation.
 
 ### From PyPI
@@ -101,13 +102,14 @@ Nach der Installation kann sie wie folgt ausgeführt werden:
 ```flatpak run in.varb.Ausweiskopie```
 
 Für weitere Details besuche die Marktplatzseite:
+
 [![Jetzt auf Flathub](https://flathub.org/api/badge?locale=de)](https://flathub.org/apps/in.varb.Ausweiskopie)
 
 ### Binaries on GitHub Releases for Linux
 
 [![Github Releases](https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=Github&labelColor=black)](https://github.com/Varbin/Ausweiskopie/releases/latest/)
 
-Die neusten Pakete findest du unter _Releases_.
+Die neusten Pakete findest du unter [Releases](https://github.com/Varbin/Ausweiskopie/releases/latest/).
 Du kannst die Anwendung direkt ohne Installation ausführen.
 
 ### Von PyPI
