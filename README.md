@@ -84,7 +84,7 @@ Folgende Ausweistypen werden unterstützt:
 
 ## Installation
 
-### Flatpak for Linux
+### Flatpak für Linux
 
 Unter Linux kann die Anwendung unabhängig von der Linuxdistribution mittels Flatpak installiert werden.
 Sollte Flatpak noch nicht installiert sein, folge der [Einrichtungsanleitung](https://flathub.org/de/setup).
@@ -99,7 +99,7 @@ Für weitere Details besuche die Marktplatzseite:
 
 [![Jetzt auf Flathub](https://flathub.org/api/badge?locale=de)](https://flathub.org/apps/in.varb.Ausweiskopie)
 
-### Binaries on GitHub Releases for Windows
+### Windows-Dateien unter den GitHub Releases
 
 Die neusten Pakete findest du unter [Releases](https://github.com/Varbin/Ausweiskopie/releases/latest/).
 Du kannst die Anwendung direkt ohne Installation ausführen.
