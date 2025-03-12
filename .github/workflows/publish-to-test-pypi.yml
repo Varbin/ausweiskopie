@@ -74,7 +74,7 @@ jobs:
           pyinstaller contrib/pyinstaller-entrypoint.spec
       - name: Rename binary
         run:
-          dist/ausweiskopie dist/ausweiskopie-macos-intel
+          mv dist/ausweiskopie dist/ausweiskopie-macos-intel
       - name: Store the binary
         uses: actions/upload-artifact@v4
         with:
@@ -101,7 +101,7 @@ jobs:
           pyinstaller contrib/pyinstaller-entrypoint.spec
       - name: Rename binary
         run:
-          dist/ausweiskopie dist/ausweiskopie-macos-arm64
+          mv dist/ausweiskopie dist/ausweiskopie-macos-arm64
       - name: Store the binary
         uses: actions/upload-artifact@v4
         with:
