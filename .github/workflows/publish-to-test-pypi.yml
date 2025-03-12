@@ -53,8 +53,36 @@ jobs:
         with:
           name: pyinstaller-binaries
           path: dist/
-  build-macho:
-    name: Build binary for MacOS
+
+  build-macos-intel:
+    name: Build binary for MacOS (Intel)
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: "0"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install package and pyinstaller.
+        run: |
+          pip install . pyinstaller
+      - name: Package binary
+        run:
+          pyinstaller contrib/pyinstaller-entrypoint.spec
+      - name: Rename binary
+        run:
+          dist/ausweiskopie dist/ausweiskopie-macos-intel
+      - name: Store the binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: pyinstaller-binaries-macos-intel
+          path: dist/
+
+  build-macos-arm64:
+    name: Build binary for MacOS (ARM64)
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
@@ -71,10 +99,13 @@ jobs:
       - name: Package binary
         run:
           pyinstaller contrib/pyinstaller-entrypoint.spec
+      - name: Rename binary
+        run:
+          dist/ausweiskopie dist/ausweiskopie-macos-arm64
       - name: Store the binary
         uses: actions/upload-artifact@v4
         with:
-          name: pyinstaller-binaries
+          name: pyinstaller-binaries-macos-arm64
           path: dist/
 
   publish-to-pypi:
@@ -123,6 +154,16 @@ jobs:
       with:
         name: pyinstaller-binaries
         path: dist/
+    - name: Download MacOS intel executables
+      uses: actions/download-artifact@v4
+      with:
+        name: pyinstaller-binaries-macos-intel
+        path: dist/
+    - name: Download MacOS ARM64 executables
+      uses: actions/download-artifact@v4
+      with:
+        name: pyinstaller-binaries-macos-arm64
+        path: dist/
     - name: Sign the dists with Sigstore
       uses: sigstore/gh-action-sigstore-python@v3.0.0
       with:
@@ -130,6 +171,7 @@ jobs:
           ./dist/*.tar.gz
           ./dist/*.whl
           ./dist/*.exe
+          ./dist/ausweiskopie-macos-*
     - name: Create GitHub Release
       env:
         GITHUB_TOKEN: ${{ github.token }}
