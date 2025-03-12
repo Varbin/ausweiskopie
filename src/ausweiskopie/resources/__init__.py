@@ -29,9 +29,9 @@ _locale: Optional[str] = None
 _strings: dict[str, dict[str, str]] = {}
 
 
-def get_resource(fn, mode="rb"):
+def get_resource(fn, mode="rb", *args, **kwargs):
     """Get a resource file."""
-    return files(__name__).joinpath(fn).open(mode)
+    return files(__name__).joinpath(fn).open(mode, *args, **kwargs)
 
 
 def set_locale(new_locale: Optional[str] = None):
@@ -54,7 +54,7 @@ def get_string(key: str) -> str:
     """Return a translated string."""
     global _strings
     if not _strings:
-        with get_resource(TRANSLATIONS, "r") as translations:
+        with get_resource(TRANSLATIONS, "r", encoding='utf-8') as translations:
             reader = csv.reader(translations, delimiter=";")
             heading = next(reader)
             keys = heading[1:]
