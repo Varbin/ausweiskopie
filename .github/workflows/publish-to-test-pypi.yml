@@ -53,6 +53,29 @@ jobs:
         with:
           name: pyinstaller-binaries
           path: dist/
+  build-macho:
+    name: Build binary for MacOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: "0"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install package and pyinstaller.
+        run: |
+          pip install . pyinstaller
+      - name: Package binary
+        run:
+          pyinstaller contrib/pyinstaller-entrypoint.spec
+      - name: Store the binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: pyinstaller-binaries
+          path: dist/
 
   publish-to-pypi:
     name: >-
