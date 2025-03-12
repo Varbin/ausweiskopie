@@ -2,6 +2,7 @@
 UI of the Ausweiskopie app.
 """
 import datetime
+import os
 import tkinter as tk
 import traceback
 from collections import OrderedDict
@@ -173,15 +174,36 @@ class MainFrame(ttk.Frame):
             new.putdata(page.getdata())
             pages.append(page)
 
-        if outfile.endswith(".pdf"):
-            pages[0].save(
-                outfile,
-                save_all=True,
-                append_images=pages[1:],
-                title="",
-                creationDate=1,
-                modDate=1,
-            )
+        try:
+            if outfile.lower().endswith(".pdf"):
+                pages[0].save(
+                    outfile,
+                    save_all=True,
+                    append_images=pages[1:],
+                    title="",
+                    creationDate=1,
+                    modDate=1,
+                )
+            else:
+                height = sum(page.height for page in pages)
+                width = max(page.width for page in pages)
+
+                out = Image.new("RGB", (width, height), color="white")
+                heightidx = 0
+                for page in pages:
+                    out.paste(page, (0, heightidx))
+                    heightidx += page.size[1]
+
+                out.save(outfile)
+        except IOError as e:
+            messagebox.showerror("Error writing file",
+                                 "File cannot be opened: %s" % e)
+        except ValueError as e:
+            messagebox.showerror("Unknown file extension",
+                                 str(e))
+        except:
+            messagebox.showerror("Unexpected error", traceback.format_exc())
+
 
     def finish(self):
         ...
