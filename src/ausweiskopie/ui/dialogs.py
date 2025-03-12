@@ -12,6 +12,7 @@ from tkinter.filedialog import askopenfile, askopenfilename, asksaveasfilename
 from typing import Union, Collection, Tuple, Optional, List, Sequence, Any
 from concurrent.futures import Future
 from urllib.parse import unquote, urlparse, urlencode, quote
+from zoneinfo import reset_tzpath
 
 BUS_NAME_BASE = "org.freedesktop.portal"
 BUS_OBJECT_PATH = "/org/freedesktop/portal/desktop"
@@ -166,7 +167,7 @@ def savefileasname(
         title: Optional[str] = None,
         parent: Optional[tkinter.Tk] = None,
         session_bus: Any = None
-) -> Optional[io.FileIO]:
+) -> Optional[str]:
     """Asks the user to open a file with a dialog."""
     try:
         return savefileasname_desktopportals(
@@ -188,6 +189,20 @@ def savefileasname(
             title=title,
         )
 
+
+def _get_current_extension(result) -> Optional[str]:
+    if not result.get('current_filter'):
+        return None
+    if not result['current_filter'][1]:
+        return None
+    if not result['current_filter'][1][0]:
+        return None
+    if not result['current_filter'][1][0][1]:
+        return None
+
+    ext = os.path.splitext(result['current_filter'][1][0][1])[1]
+    if ext:
+        return ext
 
 def savefileasname_desktopportals(
         defaultextension: Optional[str] = None,
@@ -224,7 +239,13 @@ def savefileasname_desktopportals(
     if status != 0:
         return None
     uri: str = result["uris"][0]
-    return unquote(urlparse(uri).path)
+    fn = unquote(urlparse(uri).path)
+    if not os.path.splitext(fn)[1]:
+        if _get_current_extension(result):
+            fn += _get_current_extension(result)
+        if not os.path.splitext(fn)[1] and defaultextension is not None:
+            fn += defaultextension
+    return fn
 
 
 def savefileasname_tk(
