@@ -137,6 +137,8 @@ jobs:
     needs:
     - publish-to-pypi
     - build-exe
+    - build-macos-arm64
+    - build-macos-intel
     runs-on: ubuntu-latest
 
     permissions:
