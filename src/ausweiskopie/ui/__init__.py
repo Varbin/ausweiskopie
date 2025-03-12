@@ -36,6 +36,15 @@ ICON_IMAGE = Image.open(get_resource(ICON))
 ICON_IMAGE_COLORED = Image.open(get_resource(ICON_COLORED))
 
 
+def _get_version() -> str:
+    try:
+        import importlib.metadata
+        return importlib.metadata.distribution('ausweiskopie').version
+    except ImportError:
+        import pkg_resources
+        return pkg_resources.get_distribution('ausweiskopie').version
+
+
 class MainFrame(ttk.Frame):
     """Main application element."""
     def __init__(self, root):
@@ -104,7 +113,7 @@ class MainFrame(ttk.Frame):
         button_bar = ttk.Frame(self)
         ttk.Label(button_bar, image=self._small) \
             .grid(row=0, column=0, sticky="W")
-        ttk.Label(button_bar)\
+        ttk.Label(button_bar, text=" "+_get_version())\
             .grid(row=0, column=1, sticky="WE")
         ttk.Button(button_bar, text=_("PREVIEW"), command=self.preview)\
             .grid(row=0, column=2, sticky="E")
