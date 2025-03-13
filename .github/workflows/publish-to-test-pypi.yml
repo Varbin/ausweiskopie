@@ -80,7 +80,8 @@ jobs:
     name: >-
       Update flatpak definition (external repository)
     runs-on: ubuntu-24.04
-    #environment: flatpak
+    environment: flatpak
+    needs: publish-to-pypi
     steps:
       - uses: actions/checkout@v4
         with:
