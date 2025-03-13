@@ -3,7 +3,8 @@
   <id>in.varb.Ausweiskopie</id>
 
   <name>Meine Ausweiskopie</name>
-  <summary>Create redacted copies of German identity documents</summary>
+  <summary>Redact and mark German id copies</summary>
+  <summary xml:lang="de">Ausweise schwärzen und markieren</summary>
 
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MPL-2.0</project_license>
@@ -47,8 +48,8 @@
   </categories>
   <icon type="stock">in.varb.Ausweiskopie</icon>
   <branding>
-    <color type="primary" scheme_preference="light">#4578c3</color>
-    <color type="primary" scheme_preference="dark">#4578c3</color>
+    <color type="primary" scheme_preference="light">#7b9fd4</color>
+    <color type="primary" scheme_preference="dark">#203b63</color>
   </branding>
 
   <screenshots>
@@ -92,8 +93,15 @@
   </keywords>
 
   <releases>
+    <release version="0.1.4" date="2025-03-13">
+      <description>
+        <p>Fix files were not always saved and broken encoding on some locales.</p>
+      </description>
+    </release>
     <release version="0.1.3" date="2025-03-06">
-      <description>Add coloured icon.</description>
+      <description>
+        <p>Add coloured icon.</p>
+      </description>
     </release>
     <release version="0.1.2" date="2025-03-04">
       <description/>
