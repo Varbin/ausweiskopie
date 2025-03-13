@@ -89,7 +89,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - run: sudo apt-get install --yes dbus
+      - run: sudo apt-get install --yes dbus libdbus-1-dev
       - run: contrib/update-flatpak.sh
 
   github-release:
