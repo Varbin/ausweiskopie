@@ -42,7 +42,7 @@ git config --local commit.gpgsign false
 
 python3 -m pip install requirements-parser
 python3 "../$toolsdir/pip/flatpak-pip-generator" -r requirements.txt --ignore-errors
-git commit python3-requirements -m "Update requirements for $version"
+git commit python3-requirements.json -m "Update requirements for $version"
 flatpak run --filesystem="$(pwd)" org.flathub.flatpak-external-data-checker --edit-only "$(pwd)/$manifest"
 git commit -m "Update external data for $version" "$manifest" --allow-empty
 sed -i -E "s/(tag: )(v.+)/\1$version/g" in.varb.Ausweiskopie.yaml
