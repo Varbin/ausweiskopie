@@ -14,7 +14,7 @@ toolscommit="aac65cf44cd4e008594a9d9ac1db08e2025067a6"
 
 
 if ! flatpak --help > /dev/null; then
-  apt install --yes flatpak
+  sudo apt install --yes flatpak
 fi
 
 flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
