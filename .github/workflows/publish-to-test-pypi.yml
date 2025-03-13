@@ -130,6 +130,32 @@ jobs:
     - name: Publish distribution to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
 
+  update-flatpak:
+    name: >-
+      Update flatpak definition (external repository)
+    runs-on: ubuntu-24.04
+    environment: flatpak
+    needs: publish-to-pypi
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: "0"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - run: sudo apt-get install --yes dbus libdbus-1-dev libglib2.0-dev libcairo2-dev libgirepository-2.0-dev
+      - run: dbus-run-session contrib/update-flatpak.sh
+      - name: Store the binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: flathub-repo
+          path: flathub/.git
+      - run: contrib/push-flatpak.sh
+        env:
+          FLATPAK_UPDATE_KEY: ${{ secrets.FLATPAK_UPDATE_KEY }}
+
   github-release:
     name: >-
       Sign the Python distribution with Sigstore
