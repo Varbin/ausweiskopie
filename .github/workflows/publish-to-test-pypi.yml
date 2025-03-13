@@ -96,7 +96,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: flathub-repo
-          path: flathub
+          path: flathub/.git
       - run: contrib/push-flatpak.sh
         env:
           FLATPAK_UPDATE_KEY: ${{ secrets.FLATPAK_UPDATE_KEY }}
