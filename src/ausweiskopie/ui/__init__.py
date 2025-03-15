@@ -66,7 +66,7 @@ class MainFrame(ttk.Frame):
                     FIELDS_VORLAEUFIG_FRONT,
                 _("GERMAN_PASSPORT"):
                     FIELDS_PASSPORT,
-                _("CH_ID_2023"):
+                _("CH_NIDK_2023"):
                     FIELDS_CH_NIDK_2023_FRONT,
             },
             default=get_resource(EXAMPLE_NPA_2021),
@@ -78,7 +78,7 @@ class MainFrame(ttk.Frame):
                     FIELDS_NPA_BACK,
                 _("VORLAEUFIG_BACK"):
                     FIELDS_VORLAEUFIG_BACK,
-                _("CH_ID_2023_BACK"):
+                _("CH_NIDK_2023_BACK"):
                     FIELDS_CH_NIDK_2023_BACK,
                 _("NO_BACK"):
                     FIELDS_NO_BACK,

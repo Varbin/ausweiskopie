@@ -10,15 +10,15 @@ from typing import Optional
 from importlib_resources import files
 
 
-__all__ = ["EXAMPLE_NPA_2010", "EXAMPLE_NPA_2019", "EXAMPLE_NPA_2021", "EXAMPLE_NPA_BACK", "EXAMPLE_CH_ID_2023", "EXAMPLE_CH_ID_2023_BACK", "FONT_NOTOSANS_REGULAR", "TRANSLATIONS", "ICON", "get_resource", "set_locale", "get_string", "_"]
+__all__ = ["EXAMPLE_NPA_2010", "EXAMPLE_NPA_2019", "EXAMPLE_NPA_2021", "EXAMPLE_NPA_BACK", "EXAMPLE_CH_NIDK_2023", "EXAMPLE_CH_NIDK_2023_BACK", "FONT_NOTOSANS_REGULAR", "TRANSLATIONS", "ICON", "get_resource", "set_locale", "get_string", "_"]
 
 
 EXAMPLE_NPA_2010 = "npa_2010.jpg"
 EXAMPLE_NPA_2019 = "npa_2019.jpg"
 EXAMPLE_NPA_2021 = "npa_2021.png"
 EXAMPLE_NPA_BACK = "npa_back.png"
-EXAMPLE_CH_ID_2023 = "ch_nidk_front.jpg"
-EXAMPLE_CH_ID_2023_BACK = "ch_nidk_back.jpg"
+EXAMPLE_CH_NIDK_2023 = "ch_nidk_front.jpg"
+EXAMPLE_CH_NIDK_2023_BACK = "ch_nidk_back.jpg"
 
 FONT_NOTOSANS_REGULAR = "NotoSans-Regular.ttf"
 
