@@ -70,6 +70,7 @@ class MainFrame(ttk.Frame):
                     FIELDS_CH_NIDK_2023_FRONT,
             },
             default=get_resource(EXAMPLE_NPA_2021),
+            document_type_changed_callback=self._on_doc_type_changed,
         )
         self.back = DocumentFrame(
             self, title=_("BACK"),
@@ -83,7 +84,8 @@ class MainFrame(ttk.Frame):
                 _("NO_BACK"):
                     FIELDS_NO_BACK,
             },
-            default=get_resource(EXAMPLE_NPA_BACK)
+            default=get_resource(EXAMPLE_NPA_BACK),
+            document_type_changed_callback=self._on_doc_type_changed,
         )
         self.front.grid(row=0, column=0, sticky="E", **padding)
         self.back.grid(row=0, column=1, sticky="W", **padding)
@@ -134,6 +136,21 @@ class MainFrame(ttk.Frame):
 
         for i in range(2):
             self.grid_columnconfigure(i, weight=1)
+
+        self._on_doc_type_changed()
+
+    def _on_doc_type_changed(self):
+        try:
+            front = self.front
+            back = self.back
+        except AttributeError:
+            return
+
+        print('Selected doc types: FRONT={}, BACK={}'.format(front.document_selection.get(), back.document_selection.get()))
+        all_fields_set = (set(front.document_types[front.document_selection.get()].keys())
+                          | set(back.document_types[back.document_selection.get()].keys()))
+        self.select_fields.set_visible_fields([_(str(x)) for x in all_fields_set])
+
 
     @property
     def _arguments(self) -> Mapping[str, object]:
@@ -214,7 +231,6 @@ class MainFrame(ttk.Frame):
                                  str(e))
         except:
             messagebox.showerror("Unexpected error", traceback.format_exc())
-
 
     def finish(self):
         ...

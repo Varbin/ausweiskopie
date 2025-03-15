@@ -2,11 +2,13 @@
 UI elements.
 """
 import tkinter
+from collections.abc import Callable
 from datetime import datetime
 import tkinter as tk
 import traceback
 from tkinter import messagebox
 from tkinter import colorchooser
+from tkinter.constants import DISABLED, NORMAL
 
 from PIL import ImageDraw
 
@@ -31,10 +33,13 @@ from ..resources import _
 class DocumentFrame(ttk.LabelFrame):
     """Element to select a document picture and its type."""
     def __init__(self, root, title, default,
-                 document_types: Mapping[str, FieldDefinition]):
+                 document_types: Mapping[str, FieldDefinition],
+                 document_type_changed_callback: Optional[Callable] = None):
 
         super(DocumentFrame, self).__init__(root)
         self.configure(text=title)
+
+        self._document_type_changed_callback = document_type_changed_callback
 
         self.picture = Picture(self, default)
         self.picture.pack(expand=1, fill="x", padx=8, pady=8)
@@ -70,6 +75,8 @@ class DocumentFrame(ttk.LabelFrame):
             False,
             True
         )
+        if self._document_type_changed_callback:
+            self._document_type_changed_callback()
 
     @property
     def skip(self) -> bool:
@@ -236,7 +243,8 @@ class Selection(ttk.Frame):
                  columns=1):
         super(Selection, self).__init__(master)
 
-        self.store = {}
+        self.buttons: dict[str, ttk.Checkbutton] = {}
+        self.store: dict[str, tk.IntVar] = {}
 
         row, column = 0, 0
 
@@ -249,15 +257,23 @@ class Selection(ttk.Frame):
             if value in defaults:
                 variable.set(1)
             btn = ttk.Checkbutton(
-                self, text=display, variable=variable, onvalue=1, offvalue=0
+                self, text=display, variable=variable, onvalue=1, offvalue=0,
+                state=DISABLED
             )
             btn.grid(row=row, column=column, padx=8, pady=8, sticky="WE")
+
+            self.buttons[display] = btn
             self.store[value] = variable
 
             column = (column + 1) % columns
             if not column:
                 row += 1
                 self.grid_rowconfigure(row, weight=1)
+
+    def set_visible_fields(self, enabled_fields: Collection[str]):
+        for key, btn in self.buttons.items():
+            is_enabled = key in enabled_fields
+            btn.configure(state=NORMAL if is_enabled else DISABLED)
 
     def get_selections(self) -> Collection[str]:
         out = []
