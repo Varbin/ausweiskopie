@@ -280,4 +280,67 @@ FIELDS_PASSPORT: FieldDefinition = {
 }
 
 
+## Swiss National Identity Card (NIDK)
+# Issued since 2023
+FIELDS_CH_NIDK_2023_FRONT: FieldDefinition = {
+    Field.DOCUMENT_NUMBER: (
+        Location((0.760, 0.114), (0.950, 0.20)),
+    ),
+    Field.PHOTO: (
+        Location((0.043, 0.119), (0.352, 0.780)),
+        Location((0.690, 0.215), (0.819, 0.480)),
+    ),
+    Field.SIGNATURE: (
+        Location((0.043, 0.790), (0.352, 0.978)),
+    ),
+    Field.SURNAME: (
+        Location((0.369, 0.510), (0.931, 0.595)),
+    ),
+    Field.GIVEN_NAME: (
+        Location((0.369, 0.620), (0.931, 0.705)),
+    ),
+    Field.SEX: (
+        Location((0.369, 0.790), (0.50, 0.845)),
+    ),
+    Field.NATIONALITY: (
+        Location((0.545, 0.790), (0.694, 0.845)),
+    ),
+    Field.DATE_OF_BIRTH: (
+        Location((0.369, 0.905), (0.571, 0.963)),
+    ),
+    Field.DATE_OF_EXPIRY: (
+        Location((0.687, 0.905), (0.889, 0.963)),
+    ),
+}
+
+FIELDS_CH_NIDK_2023_BACK: FieldDefinition = {
+    Field.HEIGHT: (
+        Location((0.05, 0.1521), (0.2218, 0.2192)),
+    ),
+    Field.PHOTO: (
+        Location((1 - 0.819, 0.215), (1 - 0.690, 0.480)),
+    ),
+    Field.AUTHORITY: (
+        Location((0.50, 0.53), (0.95, 0.59)),
+    ),
+    Field.DOCUMENT_NUMBER: (
+        Location((0.2006, 0.6711), (0.5028, 0.745)),
+        Location((0.39, 0.35), (0.57, 0.42)),
+    ),
+    Field.MACHINE_READABLE_ZONE: (
+        Location((0.0367, 0.6488), (0.9732, 0.9195)),
+    ),
+    Field.DATE: (
+        Location((0.05, 0.53), (0.2359, 0.59)),
+    ),
+    Field.DATE_OF_EXPIRY: (
+        Location((0.39, 0.28), (0.50, 0.35)),
+    ),
+    Field.CH_PLACE_OF_ORIGIN: (
+        Location((0.05, 0.0582), (0.58, 0.13)),
+        Location((0.44, 0.28), (0.57, 0.42)),
+    )
+}
+
+
 FIELDS_NO_BACK = {}

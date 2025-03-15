@@ -81,6 +81,10 @@ class Field(str, _AutoName):
     # Found on Aufenthaltstiteln
     REMARKS = auto()
 
+    # Found on Swiss ID documents ("Heimatort" / "Lieu d'origine" / "Place of origin")
+    # not to be confused with ADDRESS (see https://en.wikipedia.org/wiki/Place_of_origin)
+    CH_PLACE_OF_ORIGIN = auto()
+
     def __str__(self):
         return self.value
 
