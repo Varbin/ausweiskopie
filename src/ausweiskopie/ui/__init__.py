@@ -29,7 +29,7 @@ except ImportError:
 from .elements import DocumentFrame, Selection, ColorButton, \
     MarkFrame
 from ..resources import \
-    ICON, EXAMPLE_NPA_2021, EXAMPLE_NPA_BACK, get_resource, _, ICON_COLORED
+    ICON, EXAMPLE_NPA_2021, EXAMPLE_NPA_BACK, get_resource, _, ICON_COLORED, EXAMPLE_CH_ID_2023, EXAMPLE_CH_ID_2023_BACK
 
 from PIL import Image, ImageTk
 
