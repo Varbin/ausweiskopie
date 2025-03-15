@@ -72,9 +72,12 @@ jobs:
       - name: Package binary
         run:
           pyinstaller contrib/pyinstaller-entrypoint.spec
-      - name: Rename binary
+      - name: Create dmg
         run:
-          mv dist/ausweiskopie dist/ausweiskopie-macos-intel
+          hdiutil create -volname "Meine Ausweiskopie" -srcfolder "dist/Meine Ausweiskopie.app" -ov -format UDZO "Meine Ausweiskopie.dmg"
+      - name: Rename & Move dmg
+        run:
+          mv Meine\ Ausweiskopie.dmg dist/Meine\ Ausweiskopie\ \(Intel\).dmg
       - name: Store the binary
         uses: actions/upload-artifact@v4
         with:
@@ -99,9 +102,12 @@ jobs:
       - name: Package binary
         run:
           pyinstaller contrib/pyinstaller-entrypoint.spec
-      - name: Rename binary
+      - name: Create dmg
         run:
-          mv dist/ausweiskopie dist/ausweiskopie-macos-arm64
+          hdiutil create -volname "Meine Ausweiskopie" -srcfolder "dist/Meine Ausweiskopie.app" -ov -format UDZO "Meine Ausweiskopie.dmg"
+      - name: Rename & Move dmg
+        run:
+          mv Meine\ Ausweiskopie.dmg dist/Meine\ Ausweiskopie\ \(Arm\).dmg
       - name: Store the binary
         uses: actions/upload-artifact@v4
         with:

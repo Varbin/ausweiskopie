@@ -40,10 +40,9 @@ def set_locale(new_locale: Optional[str] = None):
     if new_locale is None:
         locale.setlocale(locale.LC_ALL, '')
         new_locale = locale.getlocale(
-            locale.LC_CTYPE if platform.system() == "Windows"
-                            else locale.LC_MESSAGES
+	        getattr(locale, "LC_MESSAGES", locale.LC_CTYPE)
         )[0]
-        if new_locale == "C":
+        if new_locale is None or new_locale == "C":
             new_locale = "en"
         else:
             new_locale = new_locale[:2].lower()
