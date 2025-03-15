@@ -40,6 +40,14 @@ class Location:
              int(image.height*bottom_right.y)),
         )
 
+    def __str__(self):
+        return '({:.4f}, {:.4f}), ({:.4f}, {:.4f})'.format(
+            self.top_left[0],
+            self.top_left[1],
+            self.bottom_right[0],
+            self.bottom_right[1],
+        )
+
 
 class _AutoName(Enum):
     @staticmethod

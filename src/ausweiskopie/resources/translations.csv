@@ -1,7 +1,7 @@
 string;en;de
 DOCUMENT_NUMBER;Document number;Ausweisnummer
 MACHINE_READABLE_ZONE;Complete machine readable zone (MRZ);Gesamter maschinenlesbarer Bereich (MRZ)
-PHOTO;Photo;Photo
+PHOTO;Photo;Foto
 SURNAME;Surname;Name
 GIVEN_NAME;Given names;Vornamen
 NAME_AT_BIRTH;Name at birth;Geburtsname
@@ -44,3 +44,32 @@ VORLAEUFIG_BACK;2. Temporary German Identity Card;2. Vorläufiger Personalauswei
 CH_NIDK_2023;6. Swiss National Identity Card (since 2023);6. Schweizerische Identitätskarte (ab 2023)
 CH_NIDK_2023_BACK;4. Swiss National Identity Card (since 2023);4. Schweizerische Identitätskarte (ab 2023)
 CH_PLACE_OF_ORIGIN;Place of Origin (Switzerland);Heimatort / Bürgerort (Schweiz)
+EDITOR_MENU_FILE;File;Datei
+EDITOR_MENU_EDIT;Edit;Bearbeiten
+EDITOR_MENU_DEFINE_FIELD;Define Field;Feld definieren
+EDITOR_MENU_OPEN_IMAGE;Open Image;Bild öffnen
+EDITOR_MENU_IMPORT_LAYOUT;Import Layout from ...;Layout importieren von ...
+EDITOR_MENU_EXPORT_LAYOUT;Export Layout to ...;Layout exportieren als ...
+EDITOR_MENU_EXIT;Exit;Beenden
+EDITOR_MENU_REDEFINE_FIELD;Re-define field as ...;Feld umdefinieren als ...
+EDITOR_MENU_DELETE_FIELD;Delete field;Feld löschen
+EDITOR_MENU_CLEAR_ALL_FIELDS;Clear all fields;Alle Felder löschen
+EDITOR_GROUP_MAIN_FIELD;Field Editor (drag to define field);Feld-Editor (mit Maus ziehen um Feld festzulegen)
+EDITOR_GROUP_FIELD_LIST;Defined Fields;Definierte Felder
+EDITOR_STATUS_READY;Ready;Bereit
+EDITOR_STATUS_LOADED_IMAGE;"Loaded image from ""{filename}""";"Bild geladen von ""{filename}"""
+EDITOR_STATUS_LOADED_LAYOUT;Imported layout with {count} fields;Layout mit {count} Feldern importiert
+EDITOR_STATUS_EXPORTED_LAYOUT;"Exported layout to ""{outfile}"" as ""{exporter}""";"Layout exportiert nach ""{outfile}"" als ""{exporter}"""
+EDITOR_STATUS_DRAG_TO_DEFINE;"Drag to define ""{field}""";"Ziehen, um ""{field}"" zu definieren"
+EDITOR_STATUS_DEFINED_FIELD;"Defined ""{field}"" at location ({location}), select another field to define";"Feld ""{field}"" an Position ({location}) definiert, anderes Feld zum Definieren wählen"
+EDITOR_STATUS_HIGHLIGHTED_FIELD;"Defined ""{field}"" at location ({location})";"Feld ""{field}"" an Position ({location}) definiert"
+EDITOR_STATUS_DELETED_FIELD;"Deleted field ""{field}"" at location ({location})";"Feld ""{field}"" an Position ({location}) gelöscht"
+EDITOR_STATUS_CLEARED_FIELDS;Deleted {count} fields;{count} Felder gelöscht
+EDITOR_STATUS_NO_FIELD_SELECTED;Please select a field to define first;Bitte erst ein Feld zum Definieren wählen
+EDITOR_STATUS_RELEASE_TO_DEFINE_FIELD;"Release to define ""{field}"" at location ({location})";"Maustaste loslassen, um Feld ""{field}"" an Position ({location}) zu definieren"
+EDITOR_FORMAT_BASIC_JSON;Basic JSON;Einfaches JSON
+EDITOR_FORMAT_PYTHON;Python Snippet;Python-Snippet
+EDITOR_MENU_CANCEL_DEFINE;Cancel selection;Auswahl abbrechen
+EDITOR_MENU_IMPORT_LAYOUT_FROM_CODE;Import Layout from FieldDefinition ...;Layout aus FieldDefinition importieren ...
+APP_NAME;Meine Ausweiskopie;Meine Ausweiskopie
+EDITOR;Field Editor - Meine Ausweiskopie;Feldeditor - Meine Ausweiskopie
