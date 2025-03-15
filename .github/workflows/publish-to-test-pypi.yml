@@ -76,7 +76,7 @@ jobs:
         run:
           hdiutil create -volname "Meine Ausweiskopie" -srcfolder "dist/Meine Ausweiskopie.app" -ov -format UDZO "Meine Ausweiskopie.dmg"
       - name: Rename & Move dmg
-        run:
+        run: |
           rm -r dist
           mkdir dist
           mv Meine\ Ausweiskopie.dmg dist/Meine\ Ausweiskopie\ \(Intel\).dmg
@@ -108,7 +108,7 @@ jobs:
         run:
           hdiutil create -volname "Meine Ausweiskopie" -srcfolder "dist/Meine Ausweiskopie.app" -ov -format UDZO "Meine Ausweiskopie.dmg"
       - name: Rename & Move dmg
-        run:
+        run: |
           rm -r dist
           mkdir dist
           mv Meine\ Ausweiskopie.dmg dist/Meine\ Ausweiskopie\ \(Arm\).dmg
