@@ -3,6 +3,7 @@ UI of the Ausweiskopie app.
 """
 import datetime
 import os
+import sys
 import tkinter as tk
 import traceback
 from collections import OrderedDict
@@ -13,6 +14,7 @@ from typing import Mapping
 
 from .dialogs import savefileasname
 from .threads import foreground, background
+from ..editor.window import EditorFrame
 from ..redact import Field, FIELDS_PASSPORT, FIELDS_NO_BACK, FIELDS_CH_NIDK_2023_FRONT, FIELDS_CH_NIDK_2023_BACK
 from ..redact import \
     FIELDS_VORLAEUFIG_BACK, FIELDS_VORLAEUFIG_FRONT, \
@@ -29,7 +31,7 @@ except ImportError:
 from .elements import DocumentFrame, Selection, ColorButton, \
     MarkFrame
 from ..resources import \
-    ICON, EXAMPLE_NPA_2021, EXAMPLE_NPA_BACK, get_resource, _, ICON_COLORED, EXAMPLE_CH_ID_2023, EXAMPLE_CH_ID_2023_BACK
+    ICON, EXAMPLE_NPA_2021, EXAMPLE_NPA_BACK, get_resource, _, ICON_COLORED
 
 from PIL import Image, ImageTk
 
@@ -254,10 +256,15 @@ def main():
     foreground.instance = root
 
     try:
-        root.wm_title("Meine Ausweiskopie")
         root.wm_iconphoto(False, ImageTk.PhotoImage(ICON_IMAGE_COLORED))
 
-        m = MainFrame(root)
+        if '-editor' in sys.argv:
+            root.wm_title(_('EDITOR'))
+            m = EditorFrame(root)
+        else:
+            root.wm_title(_('APP_NAME'))
+            m = MainFrame(root)
+
         m.pack(expand=1, fill="both")
 
         root.mainloop()

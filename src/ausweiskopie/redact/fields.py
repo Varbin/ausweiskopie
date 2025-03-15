@@ -1,4 +1,6 @@
 """Contains the field definitions of various travel documents."""
+from collections.abc import Collection
+from typing import Mapping
 
 from .definitions import FieldDefinition, Field, Location
 
@@ -342,6 +344,19 @@ FIELDS_CH_NIDK_2023_BACK: FieldDefinition = {
     )
 }
 
+
 FIELDS_NO_BACK: FieldDefinition = {}
 
-FIELDS_NO_BACK = {}
+# All Fields
+ALL_FIELD_DEFINITIONS: Mapping[str, FieldDefinition] = {
+    'FIELDS_NPA_FRONT_2010': FIELDS_NPA_FRONT_2010,
+    'FIELDS_NPA_FRONT_2019': FIELDS_NPA_FRONT_2019,
+    'FIELDS_NPA_FRONT_2021': FIELDS_NPA_FRONT_2021,
+    'FIELDS_NPA_BACK': FIELDS_NPA_BACK,
+    'FIELDS_VORLAEUFIG_FRONT': FIELDS_VORLAEUFIG_FRONT,
+    'FIELDS_VORLAEUFIG_BACK': FIELDS_VORLAEUFIG_BACK,
+    'FIELDS_PASSPORT': FIELDS_PASSPORT,
+    'FIELDS_CH_NIDK_2023_FRONT': FIELDS_CH_NIDK_2023_FRONT,
+    'FIELDS_CH_NIDK_2023_BACK': FIELDS_CH_NIDK_2023_BACK,
+    'FIELDS_NO_BACK': FIELDS_NO_BACK,
+}
