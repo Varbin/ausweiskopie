@@ -1,6 +1,6 @@
 string;en;de
 DOCUMENT_NUMBER;Document number;Ausweisnummer
-MACHINE_READABLE_ZONE;Complete machine readable zone (MRZ);Gesamter machinenlesbarer Bereich (MRZ)
+MACHINE_READABLE_ZONE;Complete machine readable zone (MRZ);Gesamter maschinenlesbarer Bereich (MRZ)
 PHOTO;Photo;Photo
 SURNAME;Surname;Name
 GIVEN_NAME;Given names;Vornamen
