@@ -77,6 +77,8 @@ jobs:
           hdiutil create -volname "Meine Ausweiskopie" -srcfolder "dist/Meine Ausweiskopie.app" -ov -format UDZO "Meine Ausweiskopie.dmg"
       - name: Rename & Move dmg
         run:
+          rm -r dist
+          mkdir dist
           mv Meine\ Ausweiskopie.dmg dist/Meine\ Ausweiskopie\ \(Intel\).dmg
       - name: Store the binary
         uses: actions/upload-artifact@v4
@@ -107,6 +109,8 @@ jobs:
           hdiutil create -volname "Meine Ausweiskopie" -srcfolder "dist/Meine Ausweiskopie.app" -ov -format UDZO "Meine Ausweiskopie.dmg"
       - name: Rename & Move dmg
         run:
+          rm -r dist
+          mkdir dist
           mv Meine\ Ausweiskopie.dmg dist/Meine\ Ausweiskopie\ \(Arm\).dmg
       - name: Store the binary
         uses: actions/upload-artifact@v4
