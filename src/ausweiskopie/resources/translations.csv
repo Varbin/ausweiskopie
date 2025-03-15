@@ -41,3 +41,6 @@ VORLAEUFIG;4. Temporary German Identity Card;4. Vorläufiger Personalausweis
 GERMAN_PASSPORT;5. German biometric Passport (since March 2017);5. Reisepass (ab März 2017)
 NO_BACK;3. (No back);3. (Keine Rückseite)
 VORLAEUFIG_BACK;2. Temporary German Identity Card;2. Vorläufiger Personalausweis
+CH_ID_2023;6. Swiss National Identity Card (since 2023);4. Schweizerische Identitätskarte (ab 2023)
+CH_ID_2023_BACK;4. Swiss National Identity Card (since 2023);4. Schweizerische Identitätskarte (ab 2023)
+CH_PLACE_OF_ORIGIN;Place of Origin;Heimatort / Bürgerort
