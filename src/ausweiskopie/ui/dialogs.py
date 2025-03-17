@@ -2,18 +2,15 @@
 Provides open/save as dialogs. Uses the native (Desktop Portals) versions if
 available, falls back to tkinter ones otherwise.
 """
-import io
 import os
-import threading
 import tkinter
 import warnings
+from concurrent.futures import Future
 from os import PathLike
-from tkinter.filedialog import askopenfile, askopenfilename, asksaveasfilename
+from tkinter.filedialog import askopenfilename, asksaveasfilename
 from typing import Union, Collection, Tuple, Optional, List, Sequence, Any, \
     Callable
-from concurrent.futures import Future
-from urllib.parse import unquote, urlparse, urlencode, quote
-from zoneinfo import reset_tzpath
+from urllib.parse import unquote, urlparse
 
 BUS_NAME_BASE = "org.freedesktop.portal"
 BUS_OBJECT_PATH = "/org/freedesktop/portal/desktop"
@@ -177,7 +174,7 @@ def savefileasname(
         title: Optional[str] = None,
         parent: Optional[tkinter.Tk] = None,
         session_bus: Any = None
-) -> Optional[str]:
+) -> Optional[Tuple[str, str]]:
     """Asks the user to open a file with a dialog."""
     try:
         return savefileasname_desktopportals(
@@ -223,7 +220,7 @@ def savefileasname_desktopportals(
         title: Optional[str] = None,
         parent: Optional[tkinter.Tk] = None,
         session_bus: Optional['dbus.Bus'] = None
-) -> Optional[str]:
+) -> Optional[Tuple[str, str]]:
     """Provide a "Save file as" dialogue on Linux."""
     if dbus is None:
         raise NotImplementedError("dbus (module) is not available")
@@ -236,20 +233,23 @@ def savefileasname_desktopportals(
 
     parent_id = ""
     if parent is not None:
-        parent_id = f"x11:{parent.winfo_id()}"
+        parent_id = f"x11:{hex(parent.winfo_id())[2:]}"
     path = dbus_filechooser.SaveFile(parent_id, title or "", options)
     status, result = _await_handle(path, session_bus)
     if status != 0:
         return None
     uri: str = result["uris"][0]
     fn = unquote(urlparse(uri).path)
-    if not os.path.splitext(fn)[1]:
-        current = _get_current_extension(result)
-        if current is not None:
-            fn += current
-        if not os.path.splitext(fn)[1] and defaultextension is not None:
-            fn += defaultextension
-    return fn
+    _, extension = os.path.splitext(fn)
+    if not extension:
+        extension = _get_current_extension(result)
+        # Do NOT extend the filename.
+        # Yes, this is weird and not optimal
+        # Tt would break flatpak portals,
+        # as the filename *with extension* is not passed into the flatpak.
+        if not extension and defaultextension is not None:
+            extension = defaultextension
+    return fn, extension
 
 
 def savefileasname_tk(
@@ -259,9 +259,9 @@ def savefileasname_tk(
         initialfile: Union[str, PathLike, None] = None,
         title: Optional[str] = None,
         parent: Optional[tkinter.Tk] = None,
-) -> Optional[str]:
+) -> Optional[Tuple[str, str]]:
     """Provide a "Save file as" dialogue with Tkinter."""
-    return asksaveasfilename(
+    filename = asksaveasfilename(
         defaultextension=defaultextension,
         filetypes=filetypes,
         initialdir=initialdir,
@@ -269,3 +269,7 @@ def savefileasname_tk(
         title=title,
         parent=parent,
     )
+    _, filetype = os.path.splitext(filename)
+    if not filetype:
+        filetype = defaultextension
+    return filename, filetype
