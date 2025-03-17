@@ -7,12 +7,13 @@ https://stackoverflow.com/a/14283431
 """
 
 import tkinter
-from typing import Callable, Any, Union, List, Tuple, Optional, Sequence
+from typing import Callable, Any, Union, List, Tuple, Optional, Sequence, \
+    Collection
 
 
 def _load_tkdnd(master: tkinter.Tk):
     version = master.tk.eval('package require tkdnd')
-    master._tkdnd_loaded = True
+    master._tkdnd_loaded = True  # type: ignore [attr-defined]
     return version
 
 
@@ -72,7 +73,7 @@ class TkDND:
             self.version = _load_tkdnd(root)
         self.root = root
 
-    def drop_target_register(self, window: tkinter.Widget, type_list: Optional[list[str]] = (), button: Optional[int] = None):
+    def drop_target_register(self, window: tkinter.Widget, type_list: Optional[Collection[str]] = (), button: Optional[int] = None):
         return self.root.tk.call("tkdnd::drop_target", "register", window,
                                  type_list, button)
 
@@ -140,12 +141,12 @@ class TkDND:
         # <<DropPosition>> :all except %D (always empty)
         # <<Drop>> : all
         A, b, C, D, e, m, T, W, X, Y, x, y  = args
-        ev = tkinter.Event()
-        ev.action = A
-        ev.button = self._get_int(b)
-        ev.code = self._get_int(C, 8)
+        ev = tkinter.Event()  # type: ignore
+        ev.action = A  # type: ignore[attr-defined]
+        ev.button = self._get_int(b)  # type: ignore[attr-defined]
+        ev.code = self._get_int(C, 8)  # type: ignore[attr-defined]
         if isinstance(self._split_list(m), list):
-            ev.state = "|".join(self._split_list(m) + f"Button{b}")
+            ev.state = "|".join(self._split_list(m) + [f"Button{b}"])
         else:
             mods = self._split_list(m)
             if b:
@@ -157,11 +158,11 @@ class TkDND:
         ev.x_root = self._get_int(X)
         ev.y_root = self._get_int(Y)
         ev.type = T
-        ev.data = D  # To splitlist!
+        ev.data = D   # type: ignore[attr-defined]
         if "DND_Files" in self.platform_independent_types(T):
-            ev.data = self._split_list(ev.data)
-        ev.name = e
-        ev.widget = ev.window = self._name_to_widget(W)
+            ev.data = self._split_list(ev.data)  # type: ignore[attr-defined]
+        ev.name = e  # type: ignore[attr-defined]
+        ev.widget = ev.window = self._name_to_widget(W)  # type: ignore[attr-defined]
         # Will crash otherwise!
         ev.char = "??"
         ev.delta = 0

@@ -24,7 +24,7 @@ TEXT_FULL = (
 )
 
 
-def is_grayscale(image: Image):
+def is_grayscale(image: Image.Image):
     """is_grayscale returns if an image is grayscale or black and white"""
     if image.mode == "L":
         return True
@@ -87,12 +87,12 @@ def pattern(w, h):
     return picture
 
 
-def personalize(image: Image,
+def personalize(image: Image.Image,
                 grayscale: bool = True,
                 text: str = TEXT_FULL,
                 text_color: str = "red",
                 text_transparency: float = 0.5,
-                data=None):
+                data=None) -> Image.Image:
     """
     Personalize a copy by converting it to grayscale and add (individual) text.
 

@@ -5,6 +5,7 @@ import csv
 import locale
 import platform
 import sys
+import typing
 from typing import Optional
 
 from importlib_resources import files
@@ -65,6 +66,7 @@ def get_string(key: str) -> str:
 
     if not _locale:
         set_locale()
+    assert _locale is not None
 
     # key = str(key)
 
@@ -74,7 +76,7 @@ def get_string(key: str) -> str:
     if ret == key:
         print(f"Not translated: {key}", file=sys.stderr)
 
-    return ret.replace("<br>", "\n")
+    return ret.replace("<br>", "\n")  # type: ignore
 
 
 _ = get_string
