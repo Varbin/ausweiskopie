@@ -9,7 +9,8 @@ import tkinter
 import warnings
 from os import PathLike
 from tkinter.filedialog import askopenfile, askopenfilename, asksaveasfilename
-from typing import Union, Collection, Tuple, Optional, List, Sequence, Any
+from typing import Union, Collection, Tuple, Optional, List, Sequence, Any, \
+    Callable
 from concurrent.futures import Future
 from urllib.parse import unquote, urlparse, urlencode, quote
 from zoneinfo import reset_tzpath
@@ -25,6 +26,9 @@ def get_dbus_eventloop():
     return DBusGMainLoop()
 
 
+_provide_dbus_interfaces: Optional[Callable[
+    [Any], Optional[Tuple['dbus.Bus', 'dbus.Interface', 'dbus.Interface']]
+]]
 try:
     import dbus
 
@@ -36,8 +40,7 @@ try:
                 raise NotImplementedError("Cannot get the eventloop!")
             except IOError:
                 warnings.warn("Cannot connect to session bus. Is DBus running?")
-                return
-
+                return None
 
         try:
             desktop = session_bus.get_object(
@@ -45,7 +48,7 @@ try:
             )
         except IOError:
             warnings.warn("Cannot get Desktop object. Are the portals installed?")
-            return
+            return None
 
         filechooser_iface = dbus.Interface(
             desktop,
@@ -72,9 +75,9 @@ def _tk_filetypes_to_portals_filters(filetypes: Collection[Tuple[str, str]]) -> 
 
 
 def _await_handle(path, bus) -> Tuple[int, Any]:
-    f = Future()
+    f: Future[tuple] = Future()
     matcher = bus.add_signal_receiver(
-        lambda status, result: f.set_result((status, result)),
+        lambda _status, _result: f.set_result((_status, _result)),
         #print,
         dbus_interface=BUS_NAME_BASE + ".Request",
         path=path
@@ -82,6 +85,23 @@ def _await_handle(path, bus) -> Tuple[int, Any]:
     status, result = f.result()
     matcher.remove()
     return status, result
+
+
+def _create_dbus_options(
+        filetypes: Sequence[Tuple[str, str]] = (),
+        initialdir: Union[str, PathLike, None] = None,
+) -> dbus.Dictionary:
+    options = dbus.Dictionary()
+    options["modal"] = True
+    if initialdir is not None:
+        options["current_folder"] = str(initialdir).encode() + b"\0"
+    else:
+        options["current_folder"] = dbus.ByteArray(os.getcwdb() + b"\0")
+    if filetypes:
+        options["filters"] = _tk_filetypes_to_portals_filters(filetypes)
+        options["current_filter"] = options["filters"][0]
+    return options
+
 
 
 def openfilename(
@@ -109,7 +129,6 @@ def openfilename(
             title=title,
         )
 
-
 def openfilename_desktopportals(
         filetypes: Sequence[Tuple[str, str]] = (),
         initialdir: Union[str, PathLike, None] = None,
@@ -122,16 +141,7 @@ def openfilename_desktopportals(
         raise NotImplementedError("dbus (module) is not available")
 
     session_bus, dbus_filechooser, _ = _provide_dbus_interfaces(session_bus)
-
-    options = dbus.Dictionary()
-    options["modal"] = True
-    if initialdir is not None:
-        options["current_folder"] = str(initialdir).encode() + b"\0"
-    else:
-        options["current_folder"] = dbus.ByteArray(os.getcwdb() + b"\0")
-    if filetypes:
-        options["filters"] = _tk_filetypes_to_portals_filters(filetypes)
-        options["current_filter"] = options["filters"][0]
+    options = _create_dbus_options(filetypes, initialdir)
 
     parent_id = ""
     if parent is not None:
@@ -203,6 +213,7 @@ def _get_current_extension(result) -> Optional[str]:
     ext = os.path.splitext(result['current_filter'][1][0][1])[1]
     if ext:
         return ext
+    return None
 
 def savefileasname_desktopportals(
         defaultextension: Optional[str] = None,
@@ -219,15 +230,7 @@ def savefileasname_desktopportals(
 
     session_bus, dbus_filechooser, _ = _provide_dbus_interfaces(session_bus)
 
-    options = dbus.Dictionary()
-    options["modal"] = True
-    if initialdir is not None:
-        options["current_folder"] = str(initialdir).encode()+b"\0"
-    else:
-        options["current_folder"] = dbus.ByteArray(os.getcwdb()+b"\0")
-    if filetypes:
-        options["filters"] = _tk_filetypes_to_portals_filters(filetypes)
-        options["current_filter"] = options["filters"][0]
+    options = _create_dbus_options(filetypes, initialdir)
     if initialfile:
         options["current_file"] = initialfile
 
@@ -241,8 +244,9 @@ def savefileasname_desktopportals(
     uri: str = result["uris"][0]
     fn = unquote(urlparse(uri).path)
     if not os.path.splitext(fn)[1]:
-        if _get_current_extension(result):
-            fn += _get_current_extension(result)
+        current = _get_current_extension(result)
+        if current is not None:
+            fn += current
         if not os.path.splitext(fn)[1] and defaultextension is not None:
             fn += defaultextension
     return fn

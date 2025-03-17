@@ -280,4 +280,4 @@ FIELDS_PASSPORT: FieldDefinition = {
 }
 
 
-FIELDS_NO_BACK = {}
+FIELDS_NO_BACK: FieldDefinition = {}

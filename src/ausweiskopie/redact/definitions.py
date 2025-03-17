@@ -23,7 +23,7 @@ class Location:
     top_left: Union[Coordinates, tuple[float, float]]
     bottom_right: Union[Coordinates, tuple[float, float]]
 
-    def rectangle_coordinates(self, image: Image) \
+    def rectangle_coordinates(self, image: Image.Image) \
             -> tuple[tuple[int, int], tuple[int, int]]:
         """
         Converts the relative top_left and bottom_right coordinates to
