@@ -148,7 +148,7 @@ class MainFrame(ttk.Frame):
             doc.apply(**self._arguments, preview=True)
 
     def save(self, _=None):
-        outfile = savefileasname(
+        result = savefileasname(
             #confirmoverwrite=True,
             defaultextension=".pdf",
             filetypes=[
@@ -158,8 +158,12 @@ class MainFrame(ttk.Frame):
             ],
             parent=self.winfo_toplevel()
         )
-        if not outfile:
+        if result is None:
             return
+
+        outfile, ext = result
+        if ext.lower() not in (".pdf", ".jpg", ".jpeg", ".png"):
+            ext = ".pdf"
 
         # Create the pictures
         pages = []
@@ -175,7 +179,7 @@ class MainFrame(ttk.Frame):
             pages.append(page)
 
         try:
-            if outfile.lower().endswith(".pdf"):
+            if ext.lower() == ".pdf":
                 pages[0].save(
                     outfile,
                     save_all=True,
@@ -183,8 +187,11 @@ class MainFrame(ttk.Frame):
                     title="",
                     creationDate=1,
                     modDate=1,
+                    format="pdf"
                 )
             else:
+                if ext.lower() == ".jpg":
+                    ext = ".jpeg"
                 height = sum(page.height for page in pages)
                 width = max(page.width for page in pages)
 
@@ -194,7 +201,7 @@ class MainFrame(ttk.Frame):
                     out.paste(page, (0, heightidx))
                     heightidx += page.size[1]
 
-                out.save(outfile)
+                out.save(outfile, format=ext[1:].lower())
         except IOError as e:
             messagebox.showerror("Error writing file",
                                  "File cannot be opened: %s" % e)
