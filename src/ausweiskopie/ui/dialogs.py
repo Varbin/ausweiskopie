@@ -87,7 +87,7 @@ def _await_handle(path, bus) -> Tuple[int, Any]:
 def _create_dbus_options(
         filetypes: Sequence[Tuple[str, str]] = (),
         initialdir: Union[str, PathLike, None] = None,
-) -> dbus.Dictionary:
+) -> 'dbus.Dictionary':
     options = dbus.Dictionary()
     options["modal"] = True
     if initialdir is not None:
