@@ -338,7 +338,7 @@ FIELDS_CH_NIDK_2023_BACK: FieldDefinition = {
     ),
     Field.CH_PLACE_OF_ORIGIN: (
         Location((0.05, 0.0582), (0.58, 0.13)),
-        Location((0.44, 0.28), (0.57, 0.42)),
+        Location((0.48, 0.28), (0.57, 0.42)),
     )
 }
 
