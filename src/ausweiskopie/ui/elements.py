@@ -177,7 +177,7 @@ class Picture(ttk.Frame):
         dnd.bind(self.label, "<<Drop>>", self.ondrop)
 
     @property
-    def image(self) -> Optional[Image.Image]:
+    def image(self) -> Image.Image:
         """Underlying image"""
         return self._image
 

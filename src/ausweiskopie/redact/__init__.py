@@ -25,12 +25,12 @@ __all__ = [
 ]
 
 
-def redact(image: Image,
+def redact(image: Image.Image,
            fields_to_redact: Collection[Field],
            field_definitions: FieldDefinition,
            show_instead_of_redact=False,
            color="black",
-           ) -> Image:
+           ) -> Image.Image:
     """
     Redact redacts a document.
 

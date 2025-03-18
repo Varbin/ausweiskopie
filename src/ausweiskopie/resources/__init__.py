@@ -5,6 +5,7 @@ import csv
 import locale
 import platform
 import sys
+import typing
 from typing import Optional
 
 from importlib_resources import files
@@ -42,10 +43,9 @@ def set_locale(new_locale: Optional[str] = None):
     if new_locale is None:
         locale.setlocale(locale.LC_ALL, '')
         new_locale = locale.getlocale(
-            locale.LC_CTYPE if platform.system() == "Windows"
-                            else locale.LC_MESSAGES
+	        getattr(locale, "LC_MESSAGES", locale.LC_CTYPE)
         )[0]
-        if new_locale == "C":
+        if new_locale is None or new_locale == "C":
             new_locale = "en"
         else:
             new_locale = new_locale[:2].lower()
@@ -68,6 +68,7 @@ def get_string(key: str) -> str:
 
     if not _locale:
         set_locale()
+    assert _locale is not None
 
     # key = str(key)
 
@@ -77,7 +78,7 @@ def get_string(key: str) -> str:
     if ret == key:
         print(f"Not translated: {key}", file=sys.stderr)
 
-    return ret.replace("<br>", "\n")
+    return ret.replace("<br>", "\n")  # type: ignore
 
 
 _ = get_string
