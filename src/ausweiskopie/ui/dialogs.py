@@ -59,9 +59,26 @@ try:
         return session_bus, filechooser_iface, openuri_iface
 
 
+    def _create_dbus_options(
+            filetypes: Sequence[Tuple[str, str]] = (),
+            initialdir: Union[str, PathLike, None] = None,
+    ) -> dbus.Dictionary:
+        options = dbus.Dictionary()
+        options["modal"] = True
+        if initialdir is not None:
+            options["current_folder"] = str(initialdir).encode() + b"\0"
+        else:
+            options["current_folder"] = dbus.ByteArray(os.getcwdb() + b"\0")
+        if filetypes:
+            options["filters"] = _tk_filetypes_to_portals_filters(filetypes)
+            options["current_filter"] = options["filters"][0]
+        return options
+
+
 except ImportError:
     dbus = None
     _provide_dbus_interfaces = None
+    _create_dbus_options = None
 
 
 def _tk_filetypes_to_portals_filters(filetypes: Collection[Tuple[str, str]]) -> List[Tuple[str, List[Tuple['dbus.UInt32', str]]]]:
@@ -82,22 +99,6 @@ def _await_handle(path, bus) -> Tuple[int, Any]:
     status, result = f.result()
     matcher.remove()
     return status, result
-
-
-def _create_dbus_options(
-        filetypes: Sequence[Tuple[str, str]] = (),
-        initialdir: Union[str, PathLike, None] = None,
-) -> dbus.Dictionary:
-    options = dbus.Dictionary()
-    options["modal"] = True
-    if initialdir is not None:
-        options["current_folder"] = str(initialdir).encode() + b"\0"
-    else:
-        options["current_folder"] = dbus.ByteArray(os.getcwdb() + b"\0")
-    if filetypes:
-        options["filters"] = _tk_filetypes_to_portals_filters(filetypes)
-        options["current_filter"] = options["filters"][0]
-    return options
 
 
 
