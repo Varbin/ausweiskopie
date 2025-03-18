@@ -343,3 +343,5 @@ FIELDS_CH_NIDK_2023_BACK: FieldDefinition = {
 }
 
 FIELDS_NO_BACK: FieldDefinition = {}
+
+FIELDS_NO_BACK = {}
