@@ -54,7 +54,7 @@ class EditorFrame(ttk.Frame):
 
         import_menu = tkinter.Menu(menubar, tearoff=0)
         for key, importer in IMPORTERS.items():
-            import_menu.add_command(label=_(importer.get_import_label()), command=editor.import_from(key))
+            import_menu.add_command(label=_(importer.label), command=editor.import_from(key))
         file_menu.add_cascade(label=_('EDITOR_MENU_IMPORT_LAYOUT'), menu=import_menu)
 
         import_from_code_menu = tkinter.Menu(menubar, tearoff=0)
@@ -64,7 +64,7 @@ class EditorFrame(ttk.Frame):
 
         export_menu = tkinter.Menu(menubar, tearoff=0)
         for key, exporter in EXPORTERS.items():
-            export_menu.add_command(label=_(exporter.get_export_label()), command=editor.export_as(key))
+            export_menu.add_command(label=_(exporter.label), command=editor.export_as(key))
 
         file_menu.add_cascade(label=_('EDITOR_MENU_EXPORT_LAYOUT'), menu=export_menu)
         file_menu.add_separator()
@@ -281,7 +281,7 @@ class ImageEditor(ttk.Frame):
                 return
 
             infile = openfilename(
-                filetypes=importer.get_supported_file_extensions(),
+                filetypes=importer.supported_file_extensions,
                 parent=self.winfo_toplevel(),
             )
             if not infile:
@@ -309,8 +309,8 @@ class ImageEditor(ttk.Frame):
                 return
 
             outfile, outfile_ext = savefileasname(
-                defaultextension=exporter.get_default_file_extension(),
-                filetypes=exporter.get_supported_file_extensions(),
+                defaultextension=exporter.default_file_extension,
+                filetypes=exporter.supported_file_extensions,
                 parent=self.winfo_toplevel(),
             )
             if not outfile:
@@ -320,7 +320,7 @@ class ImageEditor(ttk.Frame):
             with open(outfile, 'w', encoding='utf-8') as f:
                 f.write(payload)
 
-            self.root.update_status('EDITOR_STATUS_EXPORTED_LAYOUT', {'outfile': outfile, 'exporter': _(exporter.get_export_label())})
+            self.root.update_status('EDITOR_STATUS_EXPORTED_LAYOUT', {'outfile': outfile, 'exporter': _(exporter.label)})
 
         return _fn
 
