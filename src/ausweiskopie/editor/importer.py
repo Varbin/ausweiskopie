@@ -1,27 +1,51 @@
 import json
 from collections.abc import Collection
-from typing import Optional, Any, Tuple, Mapping
+from abc import abstractmethod, ABCMeta
+from typing import Optional, Tuple, Mapping
 
 from ausweiskopie.editor.exporter import FieldLocation
-from ausweiskopie.redact import Location, Field, FieldDefinition
+from ausweiskopie.redact import Location, FieldDefinition
 
 
-class BaseImporter:
+class BaseImporter(metaclass=ABCMeta):
+    """ Generic base class to handle importing layouts """
+    @abstractmethod
     def import_layout(self,
                       data: str) -> Collection[FieldLocation]:
-        raise NotImplementedError()
+        """
+        Takes the given string data and converts it into FieldLocation objects.
+        :param data: Any string data to be parsed
+        :return:
+        """
+        pass
 
-    @staticmethod
-    def get_supported_file_extensions() -> list[Tuple[str, str]]:
-        raise NotImplementedError()
+    @property
+    @abstractmethod
+    def supported_file_extensions(self) -> list[Tuple[str, str]]:
+        """
+        Returns a list of supported file extensions.
+        The tuple to provide shall contain a label and a file extension glob.
+        :return:
+        """
+        pass
 
-    @staticmethod
-    def get_default_file_extension() -> str:
-        raise NotImplementedError()
+    @property
+    @abstractmethod
+    def default_file_extension(self) -> str:
+        """
+        Returns the default file extension to use (`.xyz`)
+        :return:
+        """
+        pass
 
-    @staticmethod
-    def get_import_label() -> str:
-        raise NotImplementedError()
+    @property
+    @abstractmethod
+    def label(self) -> str:
+        """
+        Returns the translation key providing the name of the file format
+        :return:
+        """
+        pass
 
 
 class BasicJsonImporter(BaseImporter):
@@ -48,18 +72,18 @@ class BasicJsonImporter(BaseImporter):
         bottom_right = (raw_location['bottom_right'][0], raw_location['bottom_right'][1])
         return Location(top_left, bottom_right)
 
-    @staticmethod
-    def get_supported_file_extensions():
+    @property
+    def supported_file_extensions(self):
         return [
             ("JSON Document", "*.json"),
         ]
 
-    @staticmethod
-    def get_default_file_extension():
+    @property
+    def default_file_extension(self):
         return ".json"
 
-    @staticmethod
-    def get_import_label():
+    @property
+    def label(self):
         return "EDITOR_FORMAT_BASIC_JSON"
 
 
