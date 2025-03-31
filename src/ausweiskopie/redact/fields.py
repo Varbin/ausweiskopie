@@ -195,7 +195,7 @@ FIELDS_VORLAEUFIG_FRONT: FieldDefinition = {
         Location((0.5125, 0.4575), (0.6340, 0.5125)),
     ),
     Field.COLOUR_OF_EYES: (
-        Location((0.6340, 0.4575), (0.8306, 0.5125)),
+        Location((0.6340, 0.4575), (0.9664, 0.5125)),
     ),
     Field.ADDRESS: (
         Location((0.2733, 0.5289), (0.9664, 0.5733)),
