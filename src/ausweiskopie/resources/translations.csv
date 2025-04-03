@@ -41,6 +41,8 @@ VORLAEUFIG;4. Temporary German Identity Card;4. Vorläufiger Personalausweis
 GERMAN_PASSPORT;5. German biometric Passport (since March 2017);5. Reisepass (ab März 2017)
 NO_BACK;3. (No back);3. (Keine Rückseite)
 VORLAEUFIG_BACK;2. Temporary German Identity Card;2. Vorläufiger Personalausweis
-CH_NIDK_2023;6. Swiss National Identity Card (since 2023);6. Schweizerische Identitätskarte (ab 2023)
-CH_NIDK_2023_BACK;4. Swiss National Identity Card (since 2023);4. Schweizerische Identitätskarte (ab 2023)
-CH_PLACE_OF_ORIGIN;Place of Origin (Switzerland);Heimatort / Bürgerort (Schweiz)
+HELP_EDITOR;Select the sides of your document. Click and drag to draw a rectangle.<br>Afterwards, you can precisely match the corners of your document.;Wähle die Kanten deines Ausweises aus. Klicke und ziehe um ein Rechteck zu zeichen.<br>Verschiebe anschließend die Ecken, um sie zu deinem Dokument anzupassen.
+ID-1;ID-1 / CR80 ('credit card' size), 85.60×53.98 mm ;ID-1 / CR80 / 'Scheckkartenformat', 85.60×53.98 mm
+ID-2;ID-2 / Paper IDs, 105×74 mm;ID-2 / Papierausweise, 105×74 mm
+ID-3;ID-3 / Passport, 125×88 mm;ID-3 / Reisepass, 125×88 mm
+CR90;CR90 / US driver's license, 92×60 mm;CR90 / US-Führerscheine, 92×60 mm

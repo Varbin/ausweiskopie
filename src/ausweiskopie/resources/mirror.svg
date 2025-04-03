@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="64"
+   height="64"
+   viewBox="0 0 16.933333 16.933333"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="mirror.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="5.7550238"
+     inkscape:cx="36.489858"
+     inkscape:cy="32.145827"
+     inkscape:window-width="1474"
+     inkscape:window-height="899"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="mirror_symmetry"
+       start_point="9,1.9973616"
+       end_point="9,14.935846"
+       center_point="9,8.4666038"
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1.2"
+       lpesatellites="#path3"
+       mode="free"
+       discard_orig_path="false"
+       fuse_paths="false"
+       oposite_fuse="false"
+       split_items="true"
+       split_open="false"
+       link_styles="false" />
+  </defs>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.52916667;stroke-linejoin:bevel;fill-opacity:1;stroke-opacity:1;stroke-dasharray:1.0583334,0.5291667;stroke-dashoffset:0"
+       d="M 8.4666667,0 V 16.933333"
+       id="path1" />
+    <path
+       style="fill:#cacaca;fill-opacity:1;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 2.1780867,14.935846 H 6.7943302 V 1.9973616 Z"
+       id="path2"
+       inkscape:path-effect="#path-effect3"
+       inkscape:original-d="M 2.1780867,14.935846 H 6.7943302 V 1.9973616 Z"
+       transform="translate(-0.5333335)" />
+    <path
+       transform="matrix(-1,0,0,1,17.466666,0)"
+       id="path3"
+       d="M 2.1780867,14.935846 H 6.7943302 V 1.9973616 Z"
+       style="fill:#ffffff;fill-opacity:1;stroke:#757575;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+</svg>
