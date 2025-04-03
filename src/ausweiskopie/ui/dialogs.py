@@ -137,7 +137,10 @@ def openfilename_desktopportals(
     if dbus is None:
         raise NotImplementedError("dbus (module) is not available")
 
-    session_bus, dbus_filechooser, _ = _provide_dbus_interfaces(session_bus)
+    try:
+        session_bus, dbus_filechooser, _ = _provide_dbus_interfaces(session_bus)
+    except dbus.exceptions.DBusException as e:
+        raise NotImplementedError("Dbus error, are XDG Desktop portals installed?") from e
     options = _create_dbus_options(filetypes, initialdir)
 
     parent_id = ""
@@ -225,7 +228,10 @@ def savefileasname_desktopportals(
     if dbus is None:
         raise NotImplementedError("dbus (module) is not available")
 
-    session_bus, dbus_filechooser, _ = _provide_dbus_interfaces(session_bus)
+    try:
+        session_bus, dbus_filechooser, _ = _provide_dbus_interfaces(session_bus)
+    except dbus.exceptions.DBusException as e:
+        raise NotImplementedError("Dbus error, are XDG Desktop portals installed?") from e
 
     options = _create_dbus_options(filetypes, initialdir)
     if initialfile:
