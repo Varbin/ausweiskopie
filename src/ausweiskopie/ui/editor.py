@@ -418,6 +418,16 @@ class Editor(Dialog):
         self.side = StringVar(parent, side)
         super().__init__(parent, "Editor")
 
+    def _update_side(self, *args):
+        if self.side.get() == "front":
+            self.back.grid_remove()
+            side = self.front
+            side.grid()
+        else:
+            self.front.grid_remove()
+            side = self.back
+            side.grid()
+
     def onupdate(self, corners: CORNERS):
         side = {
             "front": self.front,
@@ -449,14 +459,15 @@ class Editor(Dialog):
         right = ttk.Frame(select)
         right.grid(row=1, column=1, sticky='nw')
         ttk.Label(right, text="Side").grid(row=0, column=0, sticky='nw')
-        ttk.Radiobutton(right, text="Front", value="front", variable=self.side).grid(row=1, column=0, sticky='nw')
-        ttk.Radiobutton(right, text="Back", value="back", variable=self.side).grid(row=2, column=0, sticky='nw')
+        ttk.Radiobutton(right, text="Front", value="front", variable=self.side, command=self._update_side).grid(row=1, column=0, sticky='nw')
+        ttk.Radiobutton(right, text="Back", value="back", variable=self.side, command=self._update_side).grid(row=2, column=0, sticky='nw')
         self.side.trace_add('write', lambda *args: selection.clear())
         self.front = ImageEditor(master, "Front")
         self.front.grid(row=0, column=1, sticky='new', **pad)
 
         self.back = ImageEditor(master, "Back")
-        self.back.grid(row=0, column=2, sticky='new', **pad)
+        self.back.grid(row=0, column=1, sticky='new', **pad)
+        self.back.grid_remove()
 
         for i in range(2):
             master.grid_columnconfigure(i, weight=1)
@@ -488,3 +499,5 @@ class Editor(Dialog):
 
     def getresult(self):
         return self.front.output_image, self.back.output_image
+
+
