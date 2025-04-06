@@ -85,8 +85,9 @@ FIELDS_EXPORTED: FieldDefinition = {
     @staticmethod
     def _export_field_group(field: Field, locations: list[Location]) -> str:
         locations = [f'Location({l})' for l in locations]
+        locations_str = str.join(',\n        ', locations)
         return f'''    Field.{field}: (
-        {str.join(',\n        ', locations)},
+        {locations_str},
     ),'''
 
     @property
