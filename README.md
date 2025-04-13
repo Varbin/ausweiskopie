@@ -42,6 +42,12 @@ Alternatively, visit the store page for further details:
 You can download the latest Windows and MacOS binaries from [the releases page](https://github.com/Varbin/Ausweiskopie/releases/latest/).
 The binaries work without installation.
 
+### From a package manager
+
+These are packages contributed by the community.
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/ausweiskopie.svg)](https://repology.org/project/ausweiskopie/versions)
+
 ### From PyPI
 
 [![PyPI](https://img.shields.io/badge/ausweiskopie-blue?style=for-the-badge&logo=pypi&label=PyPI&labelColor=white)](https://pypi.org/project/ausweiskopie)
@@ -103,6 +109,12 @@ Für weitere Details besuche die Marktplatzseite:
 
 Die neusten Pakete findest du unter [Releases](https://github.com/Varbin/Ausweiskopie/releases/latest/).
 Du kannst die Anwendung direkt ohne Installation ausführen.
+
+### Mittels Paketmanager
+
+Dies sind Pakete bereitgestellt von der Community.
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/ausweiskopie.svg)](https://repology.org/project/ausweiskopie/versions)
 
 ### Von PyPI
 
