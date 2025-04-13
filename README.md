@@ -37,9 +37,9 @@ Alternatively, visit the store page for further details:
 
 [![Get it on Flathub](https://flathub.org/api/badge?locale=en)](https://flathub.org/apps/in.varb.Ausweiskopie)
 
-### Binaries on GitHub Releases for Windows and MacOS
+### Binaries on GitHub Releases for Windows and macOS
 
-You can download the latest Windows and MacOS binaries from [the releases page](https://github.com/Varbin/Ausweiskopie/releases/latest/).
+You can download the latest Windows and macOS binaries from [the releases page](https://github.com/Varbin/Ausweiskopie/releases/latest/).
 The binaries work without installation.
 
 ### From a package manager
@@ -105,7 +105,7 @@ Für weitere Details besuche die Marktplatzseite:
 
 [![Jetzt auf Flathub](https://flathub.org/api/badge?locale=de)](https://flathub.org/apps/in.varb.Ausweiskopie)
 
-### Windows- und MacOS Dateien unter den GitHub Releases
+### Windows- und macOS Dateien unter den GitHub Releases
 
 Die neusten Pakete findest du unter [Releases](https://github.com/Varbin/Ausweiskopie/releases/latest/).
 Du kannst die Anwendung direkt ohne Installation ausführen.
