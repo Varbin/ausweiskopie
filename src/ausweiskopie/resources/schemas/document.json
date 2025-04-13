@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://schema.varb.in/in.varb.Ausweiskopie/document.json",
+  "type": "object",
+  "required": [
+    "id",
+    "meta",
+    "layout",
+    "i18n"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the document type and revision.",
+      "format": "uuid"
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadata (Name, size, ...)",
+      "properties": {
+        "dimensions": {
+          "default": "ID-1",
+          "enum": [
+            "ID-1",
+            "ID-2",
+            "ID-3",
+            "CR-90",
+            "custom"
+          ],
+          "type": "string",
+          "description": "Standardized size of the card. Use ID-1 instead of CR80."
+        },
+        "dimensionsCustom": {
+          "type": "array",
+          "description": "Custom dimension (WxH) in mm.",
+          "minItems": 2,
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "maxItems": 2
+        },
+        "issuer": {
+          "minLength": 3,
+          "maxLength": 3,
+          "pattern": "[A-Z]{3}",
+          "type": "string",
+          "description": "Three letter ISO 3166-1 alpha-3 code of the issuing authority. Use the code included in passports for international organisations (e.g. Interpol, EU) or the nation state for documents issued by regional authorities (e.g. US states). Use DEU for Germany (not just D)."
+        },
+        "type": {
+          "enum": [
+            "id",
+            "passport",
+            "driving-permit",
+            "laissez-passer",
+            "residency-permit",
+            "seafarer",
+            "other"
+          ],
+          "type": "string",
+          "description": "Document type."
+        },
+        "subtype": {
+          "enum": [
+            "temporary",
+            "diplomatic",
+            "service",
+            "children",
+            "other"
+          ],
+          "type": "string",
+          "description": "Subtype of the document - a country may have different types of the same identity document."
+        },
+        "issuedSince": {
+          "type": "string",
+          "format": "date",
+          "description": "When was this document type (and revision) first issued?"
+        },
+        "issuedUntil": {
+          "type": "string",
+          "format": "date",
+          "description": "When was the last time this document was issued? Do not include if this document is still issued. Please not documents can be valid longer than this date."
+        },
+        "mrz": {
+          "enum": [
+            "TD-1",
+            "TD-2",
+            "TD-3"
+          ],
+          "type": "string",
+          "description": "Whether this document has an ICAO 9303 type MRZ."
+        },
+        "mrzId": {
+          "type": "string",
+          "description": "Beginning of the MRZ",
+          "pattern": "[A-Z<]{5}"
+        }
+      },
+      "required": [
+        "dimensions",
+        "issuer",
+        "type",
+        "issuedSince"
+      ],
+      "if": {
+        "properties": {
+          "dimensions": {
+            "const": "other"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "dimensionsCustom"
+        ]
+      }
+    },
+    "layout": {
+      "type": "object",
+      "description": "Document sides",
+      "properties": {
+        "front": {
+          "description": "Front side of the document.",
+          "$ref": "#/$defs/fieldset"
+        },
+        "back": {
+          "description": "Back side of the document. Passports usually have none.",
+          "$ref": "#/$defs/fieldset"
+        }
+      },
+      "required": [
+        "front"
+      ]
+    },
+    "i18n": {
+      "type": "object",
+      "description": "Official translation of documents.",
+      "patternProperties": {
+        "[A-Z][A-Z_]*": {
+          "$ref": "#/$defs/translation"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "DOCUMENT_NAME"
+      ]
+    }
+  },
+  "$defs": {
+    "coordinate": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "number",
+        "minimum": 0
+      }
+    },
+    "rect": {
+      "type": "object",
+      "properties": {
+        "tl": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "br": {
+          "$ref": "#/$defs/coordinate"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "tl",
+        "br"
+      ]
+    },
+    "field": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rect"
+      }
+    },
+    "translation": {
+      "type": "object",
+      "properties": {
+        "en": {
+          "type": "string"
+        }
+      },
+      "patternProperties": {
+        "^[a-z]{2}$": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "en"
+      ]
+    },
+    "fieldset": {
+      "type": "object",
+      "properties": {
+        "PHOTO": {
+          "$ref": "#/$defs/field"
+        },
+        "SIGNATURE": {
+          "$ref": "#/$defs/field"
+        },
+        "GIVEN_NAME": {
+          "$ref": "#/$defs/field"
+        },
+        "SURNAME": {
+          "$ref": "#/$defs/field"
+        },
+        "AUTHORITY": {
+          "$ref": "#/$defs/field"
+        },
+        "NATIONALITY": {
+          "$ref": "#/$defs/field"
+        },
+        "DATE": {
+          "$ref": "#/$defs/field"
+        },
+        "DATE_OF_EXPIRY": {
+          "$ref": "#/$defs/field"
+        },
+        "SEX": {
+          "$ref": "#/$defs/field"
+        },
+        "DATE_OF_BIRTH": {
+          "$ref": "#/$defs/field"
+        },
+        "PLACE_OF_BIRTH": {
+          "$ref": "#/$defs/field"
+        },
+        "CAN": {
+          "$ref": "#/$defs/field"
+        },
+        "MRZ": {
+          "$ref": "#/$defs/field"
+        }
+      },
+      "patternProperties": {
+        "[A-Z][A-Z_]*": {
+          "$ref": "#/$defs/field"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
