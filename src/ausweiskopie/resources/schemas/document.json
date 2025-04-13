@@ -81,6 +81,10 @@
           "format": "date",
           "description": "When was the last time this document was issued? Do not include if this document is still issued. Please not documents can be valid longer than this date."
         },
+        "revision": {
+          "type": "string",
+          "description": "The official document revision by the issuer."
+        },
         "mrz": {
           "enum": [
             "TD-1",
