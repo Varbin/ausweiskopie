@@ -1,0 +1,355 @@
+{
+  "$schema": "https://schema.varb.in/in.varb.Ausweiskopie/document.json",
+  "id": "becf99c3-a872-4765-adb5-89e5e8eb74c7",
+  "meta": {
+    "dimensions": "ID-2",
+    "issuer": "DEU",
+    "issuedSince": "2010-11-01",
+    "type": "id",
+    "subtype": "temporary",
+    "mrz": "TD-2",
+    "mrzId": "ITD<<"
+  },
+  "layout": {
+    "front": {
+      "DOCUMENT_NUMBER": [
+        {
+          "tl": [
+            0.7583,
+            0.18
+          ],
+          "br": [
+            0.9664,
+            0.25
+          ]
+        },
+        {
+          "tl": [
+            0.04,
+            0.867
+          ],
+          "br": [
+            0.2462,
+            0.93
+          ]
+        }
+      ],
+      "PHOTO": [
+        {
+          "tl": [
+            0.0105,
+            0.05
+          ],
+          "br": [
+            0.2733,
+            0.5525
+          ]
+        }
+      ],
+      "SURNAME": [
+        {
+          "tl": [
+            0.2733,
+            0.18
+          ],
+          "br": [
+            0.753,
+            0.235
+          ]
+        },
+        {
+          "tl": [
+            0.04,
+            0.804
+          ],
+          "br": [
+            0.7795,
+            0.867
+          ]
+        }
+      ],
+      "NAME_AT_BIRTH": [
+        {
+          "tl": [
+            0.2733,
+            0.235
+          ],
+          "br": [
+            0.753,
+            0.295
+          ]
+        }
+      ],
+      "GIVEN_NAME": [
+        {
+          "tl": [
+            0.2733,
+            0.3137
+          ],
+          "br": [
+            0.9664,
+            0.37
+          ]
+        },
+        {
+          "tl": [
+            0.04,
+            0.804
+          ],
+          "br": [
+            0.7795,
+            0.867
+          ]
+        }
+      ],
+      "DATE_OF_BIRTH": [
+        {
+          "tl": [
+            0.2733,
+            0.3861
+          ],
+          "br": [
+            0.4693,
+            0.445
+          ]
+        },
+        {
+          "tl": [
+            0.3074,
+            0.867
+          ],
+          "br": [
+            0.4503,
+            0.93
+          ]
+        }
+      ],
+      "PLACE_OF_BIRTH": [
+        {
+          "tl": [
+            0.4693,
+            0.3861
+          ],
+          "br": [
+            0.9664,
+            0.445
+          ]
+        }
+      ],
+      "NATIONALITY": [
+        {
+          "tl": [
+            0.2773,
+            0.4575
+          ],
+          "br": [
+            0.4816,
+            0.5125
+          ]
+        },
+        {
+          "tl": [
+            0.2462,
+            0.867
+          ],
+          "br": [
+            0.3074,
+            0.93
+          ]
+        }
+      ],
+      "HEIGHT": [
+        {
+          "tl": [
+            0.5125,
+            0.4575
+          ],
+          "br": [
+            0.634,
+            0.5125
+          ]
+        }
+      ],
+      "COLOUR_OF_EYES": [
+        {
+          "tl": [
+            0.634,
+            0.4575
+          ],
+          "br": [
+            0.9664,
+            0.5125
+          ]
+        }
+      ],
+      "ADDRESS": [
+        {
+          "tl": [
+            0.2733,
+            0.5289
+          ],
+          "br": [
+            0.9664,
+            0.5733
+          ]
+        }
+      ],
+      "DATE": [
+        {
+          "tl": [
+            0.2733,
+            0.5956
+          ],
+          "br": [
+            0.6163,
+            0.6428
+          ]
+        }
+      ],
+      "DATE_OF_EXPIRY": [
+        {
+          "tl": [
+            0.6163,
+            0.5959
+          ],
+          "br": [
+            0.9644,
+            0.6428
+          ]
+        },
+        {
+          "tl": [
+            0.4714,
+            0.867
+          ],
+          "br": [
+            0.6136,
+            0.93
+          ]
+        }
+      ],
+      "SIGNATURE": [
+        {
+          "tl": [
+            0.2733,
+            0.666
+          ],
+          "br": [
+            0.9644,
+            0.781
+          ]
+        }
+      ],
+      "MACHINE_READABLE_ZONE": [
+        {
+          "tl": [
+            0.04,
+            0.804
+          ],
+          "br": [
+            0.7795,
+            0.93
+          ]
+        }
+      ]
+    },
+    "back": {
+      "RELIGIOUS_NAME_OR_PSEUDONYM": [
+        {
+          "tl": [
+            0.0723,
+            0.225
+          ],
+          "br": [
+            0.783,
+            0.275
+          ]
+        }
+      ],
+      "AUTHORITY": [
+        {
+          "tl": [
+            0.0723,
+            0.4875
+          ],
+          "br": [
+            0.783,
+            0.5525
+          ]
+        }
+      ]
+    }
+  },
+  "i18n": {
+    "DOCUMENT_NAME": {
+      "en": "(Temporary) Identity Card",
+      "de": "Vorläufiger Personalausweis",
+      "fr": "Carte d'identité (temporaire)"
+    },
+    "SURNAME": {
+      "en": "Surname",
+      "de": "Name",
+      "fr": "Nom"
+    },
+    "GIVEN_NAME": {
+      "en": "Given names",
+      "de": "Vornamen",
+      "fr": "Prénoms"
+    },
+    "DATE_OF_BIRTH": {
+      "en": "Date of birth",
+      "de": "Geburtsdatum",
+      "fr": "Date de naissance"
+    },
+    "PLACE_OF_BIRTH": {
+      "en": "Place of birth",
+      "de": "Geburtsort",
+      "fr": "Lieu de naissance"
+    },
+    "NATIONALITY": {
+      "en": "Nationality",
+      "de": "Staatsangehörigkeit",
+      "fr": "Nationalité"
+    },
+    "HEIGHT": {
+      "en": "Height",
+      "de": "Größe",
+      "fr": "Taille"
+    },
+    "COLOUR_OF_EYES": {
+      "en": "Colour of eyes",
+      "de": "Augenfarbe",
+      "fr": "Couleur des yeux"
+    },
+    "ADDRESS": {
+      "en": "Address",
+      "de": "Gegenwärtige Anschrift",
+      "fr": "Adresse"
+    },
+    "DATE_OF_ISSUE": {
+      "en": "Date of issue",
+      "de": "Ausstellungsdatum",
+      "fr": "Date de délivrance"
+    },
+    "DATE_OF_EXPIRY": {
+      "en": "Date of expiry",
+      "de": "Gültig bis",
+      "fr": "Date d` expiration"
+    },
+    "SIGNATURE": {
+      "en": "Signature of bearer",
+      "de": "Unterschrift der Inhaberin/des Inhabers",
+      "fr": "signature de la titulaire/du titulaire"
+    },
+    "AUTHORITY": {
+      "en": "Authority",
+      "de": "Behörde",
+      "fr": "Autorité"
+    },
+    "RELIGIOUS_NAME_OR_PSEUDONYM": {
+      "en": "Religious name or pseudonym",
+      "de": "Ordens- oder Künstlername",
+      "fr": "Nom de religion ou pseudonyme"
+    }
+  }
+}

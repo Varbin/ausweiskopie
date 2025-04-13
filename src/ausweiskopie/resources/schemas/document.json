@@ -1,6 +1,7 @@
 {
-  "$schema": "https://json-schema.org/draft-07/schema",
+  "$schema": "https://json-schema.org/draft-07/schema#",
   "$id": "https://schema.varb.in/in.varb.Ausweiskopie/document.json",
+  "title": "Identity document description format",
   "type": "object",
   "required": [
     "id",
@@ -202,6 +203,9 @@
     "fieldset": {
       "type": "object",
       "properties": {
+        "DOCUMENT_NUMBER": {
+          "$ref": "#/$defs/field"
+        },
         "PHOTO": {
           "$ref": "#/$defs/field"
         },
@@ -221,6 +225,9 @@
           "$ref": "#/$defs/field"
         },
         "DATE": {
+          "$ref": "#/$defs/field"
+        },
+        "DATE_OF_ISSUE": {
           "$ref": "#/$defs/field"
         },
         "DATE_OF_EXPIRY": {
