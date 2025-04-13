@@ -57,7 +57,7 @@ jobs:
           path: dist/
 
   build-macos-intel:
-    name: Build binary for MacOS (Intel)
+    name: Build binary for macOS (Intel)
     runs-on: macos-13
     steps:
       - uses: actions/checkout@v4
@@ -89,7 +89,7 @@ jobs:
           path: dist/
 
   build-macos-arm64:
-    name: Build binary for MacOS (ARM64)
+    name: Build binary for macOS (ARM64)
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
@@ -195,12 +195,12 @@ jobs:
       with:
         name: pyinstaller-binaries
         path: dist/
-    - name: Download MacOS intel executables
+    - name: Download macOS intel executables
       uses: actions/download-artifact@v4
       with:
         name: pyinstaller-binaries-macos-intel
         path: dist/
-    - name: Download MacOS ARM64 executables
+    - name: Download macOS ARM64 executables
       uses: actions/download-artifact@v4
       with:
         name: pyinstaller-binaries-macos-arm64
