@@ -1,7 +1,9 @@
 """
 UI elements.
 """
+import io
 import tkinter
+import uuid
 from collections.abc import Callable
 from datetime import datetime
 import tkinter as tk
@@ -14,6 +16,7 @@ from PIL import ImageDraw
 
 from .dialogs import openfilename
 from .dnd import TkDND
+from ..resources import Document, Side, get_locale, Rectangle
 
 try:
     import ttkbootstrap as ttk
@@ -21,7 +24,7 @@ except ImportError:
     from tkinter import ttk
     ttk.Text = tk.Text
 
-from typing import Collection, Mapping, Optional
+from typing import Collection, Mapping, Optional, List
 
 from PIL import Image, ImageTk, UnidentifiedImageError
 
@@ -30,35 +33,23 @@ from ..redact import redact
 from ..redact.definitions import FieldDefinition, Field
 from ..resources import _
 
+
+padding = {"padx": 8, "pady": 8}
+
+
 class DocumentFrame(ttk.LabelFrame):
     """Element to select a document picture and its type."""
-    def __init__(self, root, title, default,
-                 document_types: Mapping[str, FieldDefinition],
-                 document_type_changed_callback: Optional[Callable] = None):
+    def __init__(self, root, title: str, default: io.BytesIO, side: Side, document: Document):
 
         super(DocumentFrame, self).__init__(root)
         self.configure(text=title)
-
-        self._document_type_changed_callback = document_type_changed_callback
+        self.side = side
 
         self.picture = Picture(self, default)
-        self.picture.pack(expand=1, fill="x", padx=8, pady=8)
+        self.picture.pack(expand=1, fill="x", **padding)
         self.picture.callback = self.change
 
-        self.document_types = document_types
-
-        self._document_type = tk.StringVar()
-        self._document_type.trace_add("write", self.change)
-
-        self.document_selection = ttk.Combobox(
-            self, textvariable=self._document_type
-        )
-        self.document_selection.configure(state="readonly")
-        self.document_selection["values"] = tuple(
-            sorted(document_types.keys())
-        )
-        self.document_selection.current(0)
-        self.document_selection.pack(expand=1, fill="x", padx=8, pady=8)
+        self._document = document
 
     def change(self, *args, **kwargs):
         """Callback to show field marks."""
@@ -71,17 +62,25 @@ class DocumentFrame(ttk.LabelFrame):
             "white",
             "black",
             [],
-            self.document_types[self._document_type.get()],
+            self.document.layout.get(self.side, {}),
             False,
             True
         )
-        if self._document_type_changed_callback:
-            self._document_type_changed_callback()
 
     @property
     def skip(self) -> bool:
         """Whether to skip this page."""
-        return not self.document_types[self._document_type.get()]
+        return bool(self._document.layout[self.side])
+
+    @property
+    def document(self) -> Document:
+        """The associated document of this frame."""
+        return self._document
+
+    @document.setter
+    def document(self, document: Document):
+        self._document = document
+        self.change()
 
     @staticmethod
     def redact_and_personalize(
@@ -89,8 +88,8 @@ class DocumentFrame(ttk.LabelFrame):
             text: str,
             text_color: str,
             redact_color: str,
-            redact_fields: Collection[Field],
-            document_type: FieldDefinition,
+            redact_fields: Collection[str],
+            document_type: Mapping[str, List[Rectangle]],
             grayscale: bool = True,
             mark: bool = False,
             text_transparency: float = 0.5,
@@ -142,7 +141,7 @@ class DocumentFrame(ttk.LabelFrame):
         new_image = DocumentFrame.redact_and_personalize(
             self.picture.image,
             text, text_color, redact_color, redact_fields,
-            self.document_types[self._document_type.get()],
+            self.document.layout.get(self.side, {}),
             grayscale,
             mark, text_transparency,
         )
@@ -239,41 +238,69 @@ class Picture(ttk.Frame):
 
 
 class Selection(ttk.Frame):
-    def __init__(self, master, kv: Mapping[str, str], defaults: set[str],
+    #_document: Document
+
+    def __init__(self, master, document: Document,
                  columns=1):
         super(Selection, self).__init__(master)
 
         self.buttons: dict[str, ttk.Checkbutton] = {}
         self.store: dict[str, tk.IntVar] = {}
 
+        self.columns = columns
         row, column = 0, 0
-
         self.grid_rowconfigure(row, weight=1)
-        for i in range(columns):
+        for i in range(self.columns):
             self.grid_columnconfigure(i, weight=1)
 
-        for display, value in kv.items():
+        self.document = document
+
+    @property
+    def document(self) -> Document:
+        return self._document
+
+    @document.setter
+    def document(self, document: Document):
+        self._document = document
+
+        fields = list(document.layout[Side.FRONT].keys())
+        fields.extend(document.layout.get(Side.BACK, {}).keys())
+
+        for _, button in self.buttons.items():
+            button.grid_forget()
+
+        self.buttons = {}
+        old = self.store
+        self.store = {}
+
+        row, column = 0, 0
+
+        for field in fields:
+            # TODO: Potentially load non-official translation from the global list
             variable = tk.IntVar()
-            if value in defaults:
-                variable.set(1)
+            if old.get(field):
+                variable.set(old.get(field).get())
+            a = document.i18n.get(field, {})
+            translation = a.get(get_locale(), a.get("en", field))
             btn = ttk.Checkbutton(
-                self, text=display, variable=variable, onvalue=1, offvalue=0,
-                state=DISABLED
+                self, text=translation, variable=variable, onvalue=1, offvalue=0,
             )
-            btn.grid(row=row, column=column, padx=8, pady=8, sticky="WE")
+            btn.grid(row=row, column=column, sticky="WE", **padding)
 
-            self.buttons[display] = btn
-            self.store[value] = variable
+            self.buttons[field] = btn
+            self.store[field] = variable
 
-            column = (column + 1) % columns
+            column = (column + 1) % self.columns
             if not column:
                 row += 1
                 self.grid_rowconfigure(row, weight=1)
 
+
     def set_visible_fields(self, enabled_fields: Collection[str]):
-        for key, btn in self.buttons.items():
-            is_enabled = key in enabled_fields
-            btn.configure(state=NORMAL if is_enabled else DISABLED)
+        #for key, btn in self.buttons.items():
+        #    is_enabled = key in enabled_fields
+        #    btn.configure(state=NORMAL if is_enabled else DISABLED)
+        ...
 
     def get_selections(self) -> Collection[str]:
         out = []
@@ -305,8 +332,6 @@ class MarkFrame(ttk.LabelFrame):
         self._percentage_value = 50
         self._percentage = tk.StringVar(value=str(self._percentage_value))
         self._percentage.trace_add("write", self._ensure_percentage)
-
-        padding = {"padx": 8, "pady": 8}
 
         # Column 0
         ttk.Checkbutton(self, text=_("GRAYSCALE"),

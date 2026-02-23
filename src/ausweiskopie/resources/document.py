@@ -3,10 +3,12 @@ import datetime
 import enum
 import uuid
 from typing import Optional, Tuple, Dict, List
-from annotated_types import Gt
 
+from annotated_types import Gt
 from pydantic import BaseModel
 from typing_extensions import NotRequired, Annotated, TypedDict
+
+from ..redact import Location
 
 
 class Side(str, enum.Enum):
@@ -20,6 +22,8 @@ class Rectangle(TypedDict):
     tl: Tuple[Annotated[float, Gt(0)], Annotated[float, Gt(0)]]
     br: Tuple[Annotated[float, Gt(0)], Annotated[float, Gt(0)]]
 
+    def location(self) -> Location:
+        return Location(self.tl, self.br)
 
 Layout = TypedDict("Layout", {
     Side.FRONT: Dict[str, List[Rectangle]],
@@ -38,12 +42,15 @@ class MRZ(str, enum.Enum):
 
     def coordinates(self) -> Dict[Side, Rectangle]:
         """Return the positions of the MRZ."""
+        # TODO: Implement
         if self == MRZ.TD1:
             return {}
         elif self == MRZ.TD2:
             return {}
         elif self == MRZ.TD3:
             return {}
+        else:
+            raise NotImplementedError(f"MRZ coordinates not implemented for {self}")
 
 
 class Type(str, enum.Enum):
@@ -84,36 +91,76 @@ class Subtype(str, enum.Enum):
     # Service passports, issued for members of the state
     SERVICE = "service"
 
+    # Travel documents issued to stateless persons
+    STATELESS = "stateless"
+
+    # Travel documents issued to non-citizens
+    NONCITIZEN = "noncitizen"
+
+    # Travel documents issued to refugess
+    REFUGEE = "refugee"
+
     # Other non-standard type of the document
     OTHER = "other"
+
+
+class Dimension(str, enum.Enum):
+    """Possible document dimensions (i.e. proportions)"""
+    # Standard "credit card" size; also known as CR-80 or TD1
+    ID1 = "ID-1"
+    # Paper visas, temporary IDs, also the old style Ausweis
+    ID2 = "ID-2"
+    # Passport booklets
+    ID3 = "ID-3"
+    # Some rarer kind
+    CR90 = "CR-90"
+    # Size is defined in a different property.
+    CUSTOM = "custom"
+
+    def size(self) -> Tuple[float, float]:
+        """Returns values of a dimension in millimeters."""
+        if self == Dimension.ID1:
+            return 85.6, 53.98
+        if self == Dimension.ID2:
+            return 105, 74
+        if self == Dimension.ID3:
+            return 125, 88
+        if self == Dimension.CR90:
+            return 92, 60
+
+        raise NotImplementedError("A custom dimension has no size.")
 
 
 @dataclasses.dataclass
 class Metadata:
     """Document metadata"""
-    issuer: str
-    type: Type
-    subtype: str
-    issuedSince: datetime.date
-    issuedUntil: Optional[datetime.date] = None
+    dimensions: Dimension  # How large is this document
+    issuer: str  # Issuing country
+    type: Type  # What type of document is this
+    issuedSince: datetime.date  # Since when is this kind of document circulated?
+
+    subtype: Optional[Subtype] = None
+    issuedUntil: Optional[datetime.date] = None  # None = currently issued
     revision: Optional[str] = None
     mrz: Optional[MRZ] = None
     mrzId: Optional[str] = None
-    dimensions: Optional[str] = None
     dimensionsCustom: Optional[Tuple[float, float]] = None
 
     @property
     def dimensionSize(self) -> Tuple[float, float]:
-        pass
+        """Returns the dimensions of a document in millimetres,
+        independent of if a well known dimension is passed or a custom one."""
+        if self.dimensions != Dimension.CUSTOM:
+            return self.dimensions.size()
+        return self.dimensionsCustom
+
 
 @dataclasses.dataclass
 class Document(BaseModel):
+    """Document describes a single revision of a type of identity document.
+    Every revision must have a different id."""
     id: uuid.UUID
     meta: Metadata
     layout: Layout
     i18n: Dict[str, Dict[str, str]]
-
-    def merged_side(self, side: Side) -> List[Rectangle]:
-        pass
-
 
