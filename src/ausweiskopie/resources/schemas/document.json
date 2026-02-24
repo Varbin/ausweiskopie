@@ -67,6 +67,9 @@
             "diplomatic",
             "service",
             "children",
+            "noncitizen",
+            "refugee",
+            "stateless",
             "other"
           ],
           "type": "string",
