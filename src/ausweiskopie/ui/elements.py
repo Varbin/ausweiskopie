@@ -70,7 +70,7 @@ class DocumentFrame(ttk.LabelFrame):
     @property
     def skip(self) -> bool:
         """Whether to skip this page."""
-        return bool(self._document.layout[self.side])
+        return not bool(self._document.layout[self.side])
 
     @property
     def document(self) -> Document:
