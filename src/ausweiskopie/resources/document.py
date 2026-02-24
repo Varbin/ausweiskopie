@@ -137,7 +137,7 @@ class Metadata:
     dimensions: Dimension  # How large is this document
     issuer: str  # Issuing country
     type: Type  # What type of document is this
-    issuedSince: datetime.date  # Since when is this kind of document circulated?
+    issuedSince: datetime.date  # Since when is this kind of document in circulation?
 
     subtype: Optional[Subtype] = None
     issuedUntil: Optional[datetime.date] = None  # None = currently issued
