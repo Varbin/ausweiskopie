@@ -73,3 +73,4 @@ EDITOR_MENU_CANCEL_DEFINE;Cancel selection;Auswahl abbrechen
 EDITOR_MENU_IMPORT_LAYOUT_FROM_CODE;Import Layout from FieldDefinition ...;Layout aus FieldDefinition importieren ...
 APP_NAME;Meine Ausweiskopie;Meine Ausweiskopie
 EDITOR;Field Editor - Meine Ausweiskopie;Feldeditor - Meine Ausweiskopie
+DOCUMENT_TYPE;Document type;Dokumententyp

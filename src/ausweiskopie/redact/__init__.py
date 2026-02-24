@@ -2,7 +2,7 @@
 Redact fields of identity documents.
 """
 
-from typing import Collection
+from typing import Collection, List
 
 from .definitions import *
 from .fields import *
@@ -24,10 +24,12 @@ __all__ = [
     "FIELDS_PASSPORT"
 ]
 
+from ..resources import Rectangle
+
 
 def redact(image: Image.Image,
-           fields_to_redact: Collection[Field],
-           field_definitions: FieldDefinition,
+           fields_to_redact: Collection[str],
+           field_definitions: Mapping[str, List[Rectangle]],
            show_instead_of_redact=False,
            color="black",
            ) -> Image.Image:
@@ -46,8 +48,8 @@ def redact(image: Image.Image,
     fill = None if show_instead_of_redact else color
 
     for field in fields_to_redact:
-        for definition in field_definitions.get(field, ()):
-            coordinates = definition.rectangle_coordinates(image)
+        for definition in field_definitions.get(field, []):
+            coordinates = Location(definition["tl"], definition["br"]).rectangle_coordinates(image)
             draw.rectangle(coordinates, fill, color)
 
     return image

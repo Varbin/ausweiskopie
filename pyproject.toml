@@ -38,12 +38,15 @@ authors = [
 ]
 dependencies = [
     "pillow >= 8.0.0",
-    "importlib-resources"
+    "importlib-resources",
+    "pydantic",
+    "tomli; python_version<='3.11'"
 ]
 
 [project.optional-dependencies]
 portals = [
-    "dbus-python; sys_platform=='linux'", "pygobject; sys_platform=='linux'"
+    "dbus-python; platform_system=='Linux' or platform_system=='FreeBSD' or platform_system=='OpenBSD'",
+    "pygobject; platform_system=='Linux' or platform_system=='FreeBSD' or platform_system=='OpenBSD'"
 ]
 modern = [
     "ttkbootstrap >= 1.0"
