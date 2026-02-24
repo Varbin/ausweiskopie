@@ -1,26 +1,21 @@
 """
 UI of the Ausweiskopie app.
 """
-import datetime
-import os
+import logging
 import sys
 import tkinter as tk
 import traceback
 import uuid
 from collections import OrderedDict
-from pydoc import classname
-from tkinter import filedialog
 from tkinter import messagebox
 from typing import Mapping
 
 from .dialogs import savefileasname
 from .threads import foreground, background
 from ..editor.window import EditorFrame
-from ..redact import Field, FIELDS_PASSPORT, FIELDS_NO_BACK, FIELDS_CH_NIDK_2023_FRONT, FIELDS_CH_NIDK_2023_BACK
-from ..redact import \
-    FIELDS_VORLAEUFIG_BACK, FIELDS_VORLAEUFIG_FRONT, \
-    FIELDS_NPA_FRONT_2021, FIELDS_NPA_FRONT_2010, FIELDS_NPA_FRONT_2019, \
-    FIELDS_NPA_BACK
+from ..redact import Field
+
+logger = logging.getLogger(__name__)
 
 try:
     import ttkbootstrap as ttk
@@ -249,11 +244,14 @@ class MainFrame(ttk.Frame):
         except IOError as e:
             messagebox.showerror("Error writing file",
                                  "File cannot be opened: %s" % e)
+            logger.error("Error writing file.", exc_info=e)
         except ValueError as e:
             messagebox.showerror("Unknown file extension",
                                  str(e))
-        except:
+            logger.error("User provided unknown file extension.", exc_info=e)
+        except Exception as e:
             messagebox.showerror("Unexpected error", traceback.format_exc())
+            logger.error("Unexpected error.", exc_info=e)
 
     def finish(self):
         ...
