@@ -7,6 +7,13 @@ from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Mapping, Collection
 
+from typing import Collection, List, Tuple
+from typing_extensions import NotRequired, Annotated, TypedDict
+
+
+from annotated_types import Gt
+
+
 from PIL import Image
 
 from typing import Any, Union
@@ -47,6 +54,16 @@ class Location:
             self.bottom_right[0],
             self.bottom_right[1],
         )
+
+
+class Rectangle(TypedDict):
+    """Rectangle on a side."""
+    tl: Tuple[Annotated[float, Gt(0)], Annotated[float, Gt(0)]]
+    br: Tuple[Annotated[float, Gt(0)], Annotated[float, Gt(0)]]
+
+    def location(self) -> Location:
+        return Location(self.tl, self.br)
+
 
 
 class _AutoName(Enum):

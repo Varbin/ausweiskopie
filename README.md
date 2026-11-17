@@ -61,7 +61,7 @@ Your Python installation must have the `tkinter`.
 
 Optional features:
  - **Modern theme**: This application will make use of _ttkbootstrap_ if available. Just run `pip install ausweiskopie[modern]`
- - **XDG Desktop Portals** (native file open/save-as dialogs on Linux): If your desktop manager provides XDG portals, just install `pip install ausweiskopie[portals]`.
+ - **XDG Desktop Portals** (native file open/save-as dialogs on Linux/BSD): If your desktop manager provides XDG portals, just install `pip install ausweiskopie[portals]`.
  - **Drag-and-Drop**: If your Tk/Tcl environment has the `tkdnd` extension, Drag-and-drop support is automatically enabled.
 
 # Meine Ausweiskopie
@@ -129,5 +129,5 @@ Deine Python-Installation muss `tkinter` installiert haben.
 
 Optionale-Features:
  - **Modernes Look-and-Feel**: Mittels *ttkbootstrap* kann der Anwendung ein modernes Aussehen übergestülpt werden, zur Installation `pip install ausweiskopie[modern]` ausführen.
- - **XDK Desktop Portals** (Natives Datei-Öffenen-/Speichern-Unter unter Linux): Die meisten Desktop-Umgebungen stellen diese mittlerweile bereit. Zur Installation `pip install ausweiskopie[portals]` durchführen.
+ - **XDG Desktop Portals** (Natives Datei-Öffenen-/Speichern-Unter unter Linux/BSDs): Die meisten Desktop-Umgebungen stellen diese mittlerweile bereit. Zur Installation `pip install ausweiskopie[portals]` durchführen.
  - **Drag-and-Drop**: Wenn `tkdnd` in deiner Tk/Tcl-Installation vorhanden ist, funktioniert Drag-und-Drop von Bildern.

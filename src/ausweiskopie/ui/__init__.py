@@ -1,25 +1,21 @@
 """
 UI of the Ausweiskopie app.
 """
-import datetime
-import os
+import logging
 import sys
 import tkinter as tk
 import traceback
+import uuid
 from collections import OrderedDict
-from pydoc import classname
-from tkinter import filedialog
 from tkinter import messagebox
 from typing import Mapping
 
 from .dialogs import savefileasname
 from .threads import foreground, background
 from ..editor.window import EditorFrame
-from ..redact import Field, FIELDS_PASSPORT, FIELDS_NO_BACK, FIELDS_CH_NIDK_2023_FRONT, FIELDS_CH_NIDK_2023_BACK
-from ..redact import \
-    FIELDS_VORLAEUFIG_BACK, FIELDS_VORLAEUFIG_FRONT, \
-    FIELDS_NPA_FRONT_2021, FIELDS_NPA_FRONT_2010, FIELDS_NPA_FRONT_2019, \
-    FIELDS_NPA_BACK
+from ..redact import Field
+
+logger = logging.getLogger(__name__)
 
 try:
     import ttkbootstrap as ttk
@@ -31,7 +27,8 @@ except ImportError:
 from .elements import DocumentFrame, Selection, ColorButton, \
     MarkFrame
 from ..resources import \
-    ICON, EXAMPLE_NPA_2021, EXAMPLE_NPA_BACK, get_resource, _, ICON_COLORED
+    ICON, EXAMPLE_NPA_2021, EXAMPLE_NPA_BACK, get_resource, _, ICON_COLORED, \
+    document_title, Document, Side, load_documents
 
 from PIL import Image, ImageTk
 
@@ -50,47 +47,52 @@ def _get_version() -> str:
 
 class MainFrame(ttk.Frame):
     """Main application element."""
-    def __init__(self, root):
+    def __init__(self, root,  documents: dict[uuid.UUID, Document]):
         super(MainFrame, self).__init__(root)
 
         padding = {"padx": 8, "pady": 8}
 
+        # TODO: Refactor
+        # We need multiple data structures:
+        # An ordered list for the ui elements,
+        # and the dictionary that keeps them unique.
+        self.documents = documents
+        self.documents_sorted = sorted(documents.values(), key=document_title)
+
+        row = 0
+
         self.front = DocumentFrame(
             self, title=_("FRONT"),
-            document_types={
-                _("NPA_2021"):
-                    FIELDS_NPA_FRONT_2021,
-                _("NPA_2019"):
-                    FIELDS_NPA_FRONT_2019,
-                _("NPA_2010"):
-                    FIELDS_NPA_FRONT_2010,
-                _("VORLAEUFIG"):
-                    FIELDS_VORLAEUFIG_FRONT,
-                _("GERMAN_PASSPORT"):
-                    FIELDS_PASSPORT,
-                _("CH_NIDK_2023"):
-                    FIELDS_CH_NIDK_2023_FRONT,
-            },
             default=get_resource(EXAMPLE_NPA_2021),
-            document_type_changed_callback=self._on_doc_type_changed,
+            side=Side.FRONT,
+            document=self.documents_sorted[0],
         )
         self.back = DocumentFrame(
             self, title=_("BACK"),
-            document_types={
-                _("NPA_BACK"):
-                    FIELDS_NPA_BACK,
-                _("VORLAEUFIG_BACK"):
-                    FIELDS_VORLAEUFIG_BACK,
-                _("CH_NIDK_2023_BACK"):
-                    FIELDS_CH_NIDK_2023_BACK,
-                _("NO_BACK"):
-                    FIELDS_NO_BACK,
-            },
             default=get_resource(EXAMPLE_NPA_BACK),
-            document_type_changed_callback=self._on_doc_type_changed,
+            side=Side.BACK,
+            document=self.documents_sorted[0],
         )
-        self.front.grid(row=0, column=0, sticky="E", **padding)
-        self.back.grid(row=0, column=1, sticky="W", **padding)
+        self.front.grid(row=row, column=0, sticky="E", **padding)
+        self.back.grid(row=row, column=1, sticky="W", **padding)
+
+        row += 1
+
+        document_type = ttk.LabelFrame(self, text=_("DOCUMENT_TYPE"))
+        self.document_selection = ttk.Combobox(
+            document_type,
+        )
+        self.document_selection.configure(state="readonly")
+        # TODO: Do proper sorting
+        self.document_selection["values"] = tuple(
+            map(document_title, self.documents_sorted)
+        )
+        self.document_selection.current(0)
+        self.document_selection.bind("<<ComboboxSelected>>", self._on_doc_type_changed)
+        self.document_selection.pack(expand=1, fill="x", **padding)
+        document_type.grid(row=row, column=0, columnspan=2, sticky="WE", **padding)
+
+        row += 1
 
         fields_set = ttk.Labelframe(self, text=_("REDACT_FIELDS"))
         note = ttk.Label(fields_set, text=_("NOT_ALL_PRESENT"))
@@ -100,20 +102,27 @@ class MainFrame(ttk.Frame):
         for field in Field:
             fields[_(field)] = field
 
-        self.select_fields = Selection(fields_set, fields, {
-            Field.DOCUMENT_NUMBER, Field.CAN,
-            Field.NAME_AT_BIRTH, Field.AUTHORITY,
-            Field.HEIGHT, Field.COLOUR_OF_EYES,
-        }, columns=4)
-        self.select_fields.grid(row=1, column=0, sticky="WE", **padding)
+        self.select_fields = Selection(
+            fields_set, self.documents_sorted[0], 4
+        )
+#                                       fields, {
+#            Field.DOCUMENT_NUMBER, Field.CAN,
+#            Field.NAME_AT_BIRTH, Field.AUTHORITY,
+#            Field.HEIGHT, Field.COLOUR_OF_EYES,
+ #       }, columns=4)
+        self.select_fields.grid(row=row, column=0, sticky="WE", **padding)
 
         fields_set.grid_columnconfigure(0, weight=1)
         fields_set.grid_columnconfigure(1, weight=1)
-        fields_set.grid(row=1, column=0, columnspan=2, sticky="WE", **padding)
+        fields_set.grid(row=row, column=0, columnspan=2, sticky="WE", **padding)
+
+        row += 1
 
         self.watermark = MarkFrame(self, text=_("MARK_COPY"))
-        self.watermark.grid(row=2, column=0, columnspan=2, sticky="WE",
+        self.watermark.grid(row=row, column=0, columnspan=2, sticky="WE",
                             **padding)
+
+        row += 1
 
         small = ICON_IMAGE.copy()
         small.thumbnail((24, 24))
@@ -132,26 +141,33 @@ class MainFrame(ttk.Frame):
         create_button.grid(row=0, column=3, sticky="E")
         if STYLE:
             create_button.configure(bootstyle="success")
-        button_bar.grid(row=3, column=0, columnspan=2, sticky="WES")
+        button_bar.grid(row=row, column=0, columnspan=2, sticky="WES")
         button_bar.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(3, weight=1)
 
         for i in range(2):
             self.grid_columnconfigure(i, weight=1)
 
-        self._on_doc_type_changed()
+        self._on_doc_type_changed(None)
 
-    def _on_doc_type_changed(self):
-        try:
-            front = self.front
-            back = self.back
-        except AttributeError:
-            return
+    def _on_doc_type_changed(self, _):
+        doc = self.documents_sorted[self.document_selection.current()]
+        self.select_fields.document = doc
+        self.front.document = doc
+        self.back.document = doc
 
-        print('Selected doc types: FRONT={}, BACK={}'.format(front.document_selection.get(), back.document_selection.get()))
-        all_fields_set = (set(front.document_types[front.document_selection.get()].keys())
-                          | set(back.document_types[back.document_selection.get()].keys()))
-        self.select_fields.set_visible_fields([_(str(x)) for x in all_fields_set])
+        #try:
+        #    front = self.front
+        #    back = self.back
+        #except AttributeError:
+        #    return
+
+        #front.document = self.documents_ordered[self._document_type.get()]
+
+        #print('Selected doc types: FRONT={}, BACK={}'.format(front.document_selection.get(), back.document_selection.get()))
+        #all_fields_set = (set(front.document_types[front.document_selection.get()].keys())
+        #                  | set(back.document_types[back.document_selection.get()].keys()))
+        #self.select_fields.set_visible_fields([_(str(x)) for x in all_fields_set])
 
 
     @property
@@ -228,11 +244,14 @@ class MainFrame(ttk.Frame):
         except IOError as e:
             messagebox.showerror("Error writing file",
                                  "File cannot be opened: %s" % e)
+            logger.error("Error writing file.", exc_info=e)
         except ValueError as e:
             messagebox.showerror("Unknown file extension",
                                  str(e))
-        except:
+            logger.error("User provided unknown file extension.", exc_info=e)
+        except Exception as e:
             messagebox.showerror("Unexpected error", traceback.format_exc())
+            logger.error("Unexpected error.", exc_info=e)
 
     def finish(self):
         ...
@@ -247,6 +266,10 @@ def main():
         Thread(target=loop.run, name="GLib MainLoop").start()
     except ImportError:
         loop = None
+
+    # Load documents
+    # TODO: Do this interactively.
+    documents = load_documents(True)
 
     if hasattr(ttk, "Window"):
         root = ttk.Window()
@@ -263,7 +286,7 @@ def main():
             m = EditorFrame(root)
         else:
             root.wm_title(_('APP_NAME'))
-            m = MainFrame(root)
+            m = MainFrame(root, documents)
 
         m.pack(expand=1, fill="both")
 
