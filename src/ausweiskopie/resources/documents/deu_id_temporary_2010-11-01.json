@@ -350,6 +350,31 @@
       "en": "Religious name or pseudonym",
       "de": "Ordens- oder Künstlername",
       "fr": "Nom de religion ou pseudonyme"
+    },
+    "NAME_AT_BIRTH": {
+      "en": "Name at birth",
+      "de": "Geburtsname",
+      "fr": "Nom de naissance"
+    },
+    "DOCUMENT_NUMBER": {
+      "en": "No.",
+      "de": "Nr.",
+      "fr": "Nº"
+    },
+    "PHOTO": {
+      "en": "Photo",
+      "de": "Foto",
+      "fr": "Photo"
+    },
+    "MACHINE_READABLE_ZONE": {
+      "en": "Machine Readable Zone",
+      "de": "Maschinenlesbarer Bereich (MRZ)",
+      "fr": "Zone de lecture optique"
+    },
+    "DATE": {
+      "en": "Date of issue",
+      "de": "Ausstellungsdatum",
+      "fr": "Date de délivrance"
     }
   }
 }

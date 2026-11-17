@@ -8,7 +8,7 @@ from annotated_types import Gt
 from pydantic import BaseModel
 from typing_extensions import NotRequired, Annotated, TypedDict
 
-from ..redact import Location
+from ..redact import Location, Rectangle
 
 
 class Side(str, enum.Enum):
@@ -17,13 +17,6 @@ class Side(str, enum.Enum):
     BACK = "back"
 
 
-class Rectangle(TypedDict):
-    """Rectangle on a side."""
-    tl: Tuple[Annotated[float, Gt(0)], Annotated[float, Gt(0)]]
-    br: Tuple[Annotated[float, Gt(0)], Annotated[float, Gt(0)]]
-
-    def location(self) -> Location:
-        return Location(self.tl, self.br)
 
 Layout = TypedDict("Layout", {
     Side.FRONT: Dict[str, List[Rectangle]],
@@ -97,7 +90,7 @@ class Subtype(str, enum.Enum):
     # Travel documents issued to non-citizens
     NONCITIZEN = "noncitizen"
 
-    # Travel documents issued to refugess
+    # Travel documents issued to refuges
     REFUGEE = "refugee"
 
     # Other non-standard type of the document

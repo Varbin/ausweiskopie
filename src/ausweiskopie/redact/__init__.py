@@ -2,8 +2,6 @@
 Redact fields of identity documents.
 """
 
-from typing import Collection, List
-
 from .definitions import *
 from .fields import *
 from PIL import Image
@@ -24,7 +22,8 @@ __all__ = [
     "FIELDS_PASSPORT"
 ]
 
-from ..resources import Rectangle
+#from ..resources import Rectangle
+
 
 
 def redact(image: Image.Image,

@@ -43,6 +43,9 @@ dependencies = [
     "tomli; python_version<='3.11'"
 ]
 
+[dependency-groups]
+dev = ["pytest"]
+
 [project.optional-dependencies]
 portals = [
     "dbus-python; platform_system=='Linux' or platform_system=='FreeBSD' or platform_system=='OpenBSD'",
@@ -66,3 +69,6 @@ include-package-data = true
 [tool.setuptools_scm]
 #version_scheme = "python-simplified-semver"
 local_scheme = "no-local-version"
+
+[tool.pytest]
+testpaths = ["testing", "doc"]
