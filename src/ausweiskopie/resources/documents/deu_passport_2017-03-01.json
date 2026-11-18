@@ -1,13 +1,13 @@
 {
   "$schema": "https://schema.varb.in/in.varb.Ausweiskopie/document.json",
-  "id": "becf99c3-a872-4765-adb5-89e5e8eb74c7",
+  "id": "97002740-0792-461d-bf4f-03777a5d0586",
   "meta": {
     "dimensions": "ID-3",
     "issuer": "DEU",
-    "issuedSince": "2010-11-01",
+    "issuedSince": "2017-03-01",
     "type": "passport",
     "mrz": "TD-3",
-    "mrzId": "ITD<<"
+    "mrzId": "P<D<<"
   },
   "layout": {
     "front": {
@@ -272,6 +272,11 @@
     }
   },
   "i18n": {
+		"DOCUMENT_NUMBER": {
+			"en": "Passport No.",
+			"de": "Pass-Nr.",
+			"fr": "Passport No."
+		},
     "DOCUMENT_NAME": {
       "en": "Passport",
       "de": "Reisepass",
@@ -287,9 +292,14 @@
       "de": "Vornamen",
       "fr": "Prénoms"
     },
+		 "NAME_AT_BIRTH": {
+		 	"en": "Name at birth",
+			"de": "Geburtsname",
+			"fr": "Nom de naissance"
+		 },
     "DATE_OF_BIRTH": {
       "en": "Date of birth",
-      "de": "Geburtsdatum",
+      "de": "Geburtstag",
       "fr": "Date de naissance"
     },
     "SEX": {
@@ -317,10 +327,10 @@
       "de": "Augenfarbe",
       "fr": "Couleur des yeux"
     },
-    "ADDRESS": {
-      "en": "Address",
-      "de": "Gegenwärtige Anschrift",
-      "fr": "Adresse"
+    "RESIDENCE": {
+      "en": "Residence",
+      "de": "Wohnort",
+      "fr": "Domicile"
     },
     "DATE_OF_ISSUE": {
       "en": "Date of issue",
@@ -330,7 +340,7 @@
     "DATE_OF_EXPIRY": {
       "en": "Date of expiry",
       "de": "Gültig bis",
-      "fr": "Date d` expiration"
+      "fr": "Date d`expiration"
     },
     "AUTHORITY": {
       "en": "Authority",
@@ -339,8 +349,8 @@
     },
     "SIGNATURE": {
       "en": "Signature of bearer",
-      "de": "Unterschrift der Inhaberin/des Inhabers",
-      "fr": "signature de la titulaire/du titulaire"
+      "de": "Unterschrift der Inhaberin, des Inhabers",
+      "fr": "Signature de la titulaire, du titulaire"
     }
   }
 }
